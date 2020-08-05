@@ -123,6 +123,7 @@ STATIC_URL = '/static/'
 
 # custom additional variables:
 AUTH_USER_MODEL = 'diary.User'
+LOGIN_REDIRECT_URL = '#'
 
 # this is from an external package:django-phonenumber-field
 # see: https://github.com/stefanfoulis/django-phonenumber-field

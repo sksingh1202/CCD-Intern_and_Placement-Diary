@@ -1,0 +1,20 @@
+body{
+	background: url("images/bg.jpg") no-repeat;
+}
+.boxed{
+
+	width: 35rem;
+
+	margin-top: 14rem;
+	background-color: #ffffff;
+	opacity: 0.6;
+	border: 1px solid white;
+	border-radius: 1.2rem;
+}
+.boxed .column{
+
+	padding: 4rem;
+	font-weight: bold;
+	color: #000000;
+	text-transform: uppercase;
+}	
