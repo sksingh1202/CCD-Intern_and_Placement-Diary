@@ -22,8 +22,8 @@ class Company(models.Model):
     additional_POC = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True)
     logo = models.ImageField(blank=True)
-    placement = models.BooleanField()
-    internship = models.BooleanField()
+    placement = models.BooleanField(default=False)
+    internship = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -45,6 +45,8 @@ class HR(models.Model):
     email = models.EmailField(blank = True)
     linkedin_id = models.CharField(max_length=50, blank=True)
     facebook_id = models.CharField(max_length=50, blank=True)
+    placement = models.BooleanField(default=False)
+    internship = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
