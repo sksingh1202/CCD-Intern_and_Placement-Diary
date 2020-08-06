@@ -1,0 +1,53 @@
+{% extends "diary/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    {% for company in object_list %}
+      <div class="container">
+
+        {% if company.logo %}
+          <img src="{{ company.logo.url }}" alt="">
+        {% else %}
+          <img src="{% static "diary/default_profile_pic" %}">
+        {% endif %}
+
+        <p>{{company.name}}</p>
+
+        <p>{{company.POC}}</p>
+
+        <p>{{company.CPOC}}</p>
+
+        <p>
+          {% if company.additional_POC %}
+            {{company.additional_POC}}
+          {% endif %}
+        </p>
+
+        <p>
+          {% if company.email %}
+            {{company.email}}
+          {% endif %}
+        </p>
+
+        <p>
+          {% if company.placement %}
+            <a href="#">Placement</a>
+          {% endif %}
+        </p>
+
+        <p>
+          {% if company.internship %}
+            <a href="#">Internship</a>
+          {% endif %}
+        </p>
+
+      </div>
+
+    {% empty %}
+
+      <h1>No companies Registerd yet</h1>
+
+    {% endfor %}
+  </div>
+{% endblock content %}

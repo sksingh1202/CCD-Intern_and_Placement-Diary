@@ -21,7 +21,9 @@ class Company(models.Model):
     CPOC = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='company_cpoc')
     additional_POC = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True)
-    placement = models.BooleanField()
+    logo = models.ImageField(blank=True)
+    placement = models.BooleanField(default=False)
+    internship = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -43,6 +45,8 @@ class HR(models.Model):
     email = models.EmailField(blank = True)
     linkedin_id = models.CharField(max_length=50, blank=True)
     facebook_id = models.CharField(max_length=50, blank=True)
+    placement = models.BooleanField(default=False)
+    internship = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

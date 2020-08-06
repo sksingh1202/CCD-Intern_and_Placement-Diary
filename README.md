@@ -15,7 +15,8 @@ Please ensure that you have the following set up on your local machine before
 running the project. You may want to go through the documentation links below for installing them in case you don't have them set up.
 
 * [Django-v3.0.8](https://www.djangoproject.com/download/)
-* [django-phonenumber-field](https://github.com/stefanfoulis/django-phonenumber-field)
+* [django-phonenumber-field-v4.0.0](https://github.com/stefanfoulis/django-phonenumber-field)
+* [python-phonenumbers-library-v8.12.7](https://github.com/daviddrysdale/python-phonenumbers)
 * [Python-v3.7.5](https://www.python.org/downloads/)
 
 ### Installing
