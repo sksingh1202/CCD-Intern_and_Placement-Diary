@@ -21,7 +21,9 @@ class Company(models.Model):
     CPOC = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='company_cpoc')
     additional_POC = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True)
+    logo = models.ImageField(blank=True)
     placement = models.BooleanField()
+    internship = models.BooleanField()
 
     def __str__(self):
         return self.name

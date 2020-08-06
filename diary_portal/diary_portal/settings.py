@@ -125,6 +125,14 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'diary.User'
 LOGIN_REDIRECT_URL = '#'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/diary/images')
+MEDIA_URL = '/media/'
+
+
 # this is from an external package:django-phonenumber-field
 # see: https://github.com/stefanfoulis/django-phonenumber-field
 PHONENUMBER_DEFAULT_REGION = "IN"
