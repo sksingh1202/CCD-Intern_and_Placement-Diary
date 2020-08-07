@@ -28,6 +28,10 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Company"
+        verbose_name_plural = "Companies"
+
 class Remark(models.Model):
     company = models.ForeignKey(Company, on_delete=models.PROTECT, related_name='remarks')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='remarks')
@@ -36,6 +40,10 @@ class Remark(models.Model):
 
     def __str__(self):
         return self.remark[:20] + "..."
+
+    class Meta:
+        verbose_name = "Remark"
+        verbose_name_plural = "Remarks"
 
 class HR(models.Model):
     name = models.CharField(max_length=100)
@@ -50,3 +58,7 @@ class HR(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "HR"
+        verbose_name_plural = "HRs"

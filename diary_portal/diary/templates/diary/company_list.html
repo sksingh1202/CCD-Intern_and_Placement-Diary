@@ -31,7 +31,7 @@
         </p>
 
         <p>
-          {% if company.placement %}
+          {% if company.placement and user.last_name == "PLACEMENT" %}
             <a href="#">Placement</a>
           {% endif %}
         </p>
