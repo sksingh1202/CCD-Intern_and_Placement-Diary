@@ -16,7 +16,7 @@ class User(AbstractUser):
         return self.username
 
 class Company(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     POC = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='company_poc')
     CPOC = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='company_cpoc')
     additional_POC = models.CharField(max_length=100, blank=True)
