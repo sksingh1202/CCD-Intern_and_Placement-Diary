@@ -14,6 +14,10 @@ urlpatterns = [
         views.CompanyListView.as_view(),
         name='company_list'
     ),
+    path('companies/new',
+        views.CompanyCreateView.as_view(),
+        name='company_create'
+    ),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
