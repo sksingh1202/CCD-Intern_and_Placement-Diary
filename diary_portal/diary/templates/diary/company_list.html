@@ -35,7 +35,7 @@
                         <div class="card-text d-flex justify-content-start "><span class="badge badge-info badge-pill POC">{{company.POC}}</span>  <span class="badge badge-info badge-pill POC">{{company.CPOC}}</span>  <span class="badge badge-info badge-pill POC">{% if company.additional_POC %}{{company.additional_POC}}{% endif %}</span> </div>
                       </div>
                         <div class="col-4 ">
-                        <span class="badge badge-primary badge-pill">{% if company.placement %}<a class="tags" href="#">Placement</a>{% endif %}</span>
+                        <span class="badge badge-primary badge-pill">{% if company.placement and user.last_name == "PLACEMENT" %}<a class="tags" href="#">Placement</a>{% endif %}</span>
                         <span class="badge badge-primary badge-pill">{% if company.internship %}<a class="tags" href="#">Internship</a>{% endif %}</span>
                       </div>
                     </div>
