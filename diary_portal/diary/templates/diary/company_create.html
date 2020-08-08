@@ -1,0 +1,39 @@
+{% extends "diary/base.html" %}
+{% load static %}
+
+{# use {% url 'company_create' %} for adding anchor tags #}
+
+{% block content %}
+  <form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <div class="container">
+      {{form.name}}
+    </div>
+    <div class="container">
+      {{form.POC}}
+    </div>
+    <div class="container">
+      {{form.CPOC}}
+    </div>
+    <div class="container">
+      {{form.additional_POC}}
+    </div>
+    <div class="container">
+      {{form.email}}
+    </div>
+    <div class="container">
+      {{form.logo}}
+    </div>
+    <div class="container">
+      {% if user.last_name == "PLACEMENT" %}
+        {{form.placement}}
+      {% endif %}
+    </div>
+    <div class="container">
+      {{form.internship}}
+    </div>
+    <div class="container">
+      <input type="submit" value="Add">
+    </div>
+  </form>
+{% endblock content %}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 from datetime import datetime
 from diary_portal import settings
 
@@ -27,6 +28,9 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('company_list')
 
     class Meta:
         verbose_name = "Company"
