@@ -123,7 +123,9 @@ STATIC_URL = '/static/'
 
 # custom additional variables:
 AUTH_USER_MODEL = 'diary.User'
+
 LOGIN_REDIRECT_URL = 'company_list'
+LOGOUT_REDIRECT_URL = 'login'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
