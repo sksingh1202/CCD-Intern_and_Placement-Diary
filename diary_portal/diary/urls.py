@@ -10,6 +10,10 @@ urlpatterns = [
         auth_views.LoginView.as_view(template_name='diary/login.html', redirect_authenticated_user=True),
         name='login'
     ),
+    path('logout/',
+        auth_views.LogoutView.as_view(),
+        name='logout'
+    ),
     path('companies/',
         views.CompanyListView.as_view(),
         name='company_list'
