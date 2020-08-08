@@ -1,0 +1,35 @@
+.list-body{
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+a.tags{
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    color:white;
+    padding: 4px;
+    text-align:center;
+}
+span{
+    float:right;
+    margin: 5px;
+}
+h4{
+    font-size:30px;
+}
+a.tags:hover{
+    text-decoration: none;
+    color: white;
+}
+.space{
+    height:20px;
+}
+img{
+    height : 100px;
+    margin-left:10px;
+    margin-right:10px;
+}
+.POC{
+    font-size: 16px;
+    padding: 4px;
+}
