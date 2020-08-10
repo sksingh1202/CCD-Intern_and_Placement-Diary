@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
+from django.utils.text import slugify
 from datetime import datetime
 from diary_portal import settings
 
@@ -25,12 +26,17 @@ class Company(models.Model):
     logo = models.ImageField(blank=True)
     placement = models.BooleanField(default=False)
     internship = models.BooleanField(default=False)
+    slug = models.SlugField(allow_unicode=True, unique=True, blank=True)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse('company_list')
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Company"
@@ -41,11 +47,13 @@ class Remark(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='remarks')
     remark = models.TextField()
     datetime = models.DateTimeField(auto_now=True)
+    placement = models.BooleanField(default=False)
 
     def __str__(self):
         return self.remark[:20] + "..."
 
     class Meta:
+        ordering = ['datetime']
         verbose_name = "Remark"
         verbose_name_plural = "Remarks"
 
