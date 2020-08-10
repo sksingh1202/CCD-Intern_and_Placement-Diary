@@ -4,9 +4,7 @@
   <head>
     <meta charset="utf-8">
 
-    {% comment %} bootstrap {% endcomment %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
-    	<!-- CSS only -->
+  	<!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'diary/base.css' %}">
@@ -17,7 +15,7 @@
   <body>
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
-  		 <a class="navbar-brand mr-auto" href="#">CCD Diary</a>
+  		 <a class="navbar-brand mr-auto" href="{% url 'company_list' value1,kwarg=value2 %}">CCD Diary</a>
         <div class="d-flex align-items-center ">
          <span class="navbar-text mx-3 ">{{ request.user }}</span>
           <a class="btn btn-outline-success my-2 my-sm-0 mx-2" href="{% url 'company_create' %}">Add Company</a>

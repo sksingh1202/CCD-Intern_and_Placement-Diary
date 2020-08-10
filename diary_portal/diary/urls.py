@@ -18,9 +18,17 @@ urlpatterns = [
         views.CompanyListView.as_view(),
         name='company_list'
     ),
-    path('companies/new',
+    path('companies/new/',
         views.CompanyCreateView.as_view(),
         name='company_create'
+    ),
+    path('companies/placement/<slug>/',
+        views.CompanyPlacementRemarksListView.as_view(),
+        name='company_placement_remarks_list'
+    ),
+    path('companies/intern/<slug>/',
+        views.CompanyInternRemarksListView.as_view(),
+        name='company_intern_remarks'
     ),
 ]
 

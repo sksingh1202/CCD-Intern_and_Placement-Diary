@@ -1,0 +1,36 @@
+{% extends "diary/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    {# company details #}
+    {% if company.logo %}
+      <img src="{{ company.logo.url }}" class="card-img" alt="Company-logo">
+    {% else %}
+      <img src="{% static "diary/images/default_profile_pic.png" %}">
+   {% endif %}
+    {{company.name}}
+    {{company.email}}
+
+    {# list of hr's #}
+    {% for HR in company_intern_hrs %}
+      {{HR.name}}
+    {% empty %}
+      <h2>No Internship hr's assigned yet!</h2>
+    {% endfor %}
+
+    {# assigned POC's and CPOC's #}
+    {{company.POC}}
+    {{company.CPOC}}
+    {% if company.additional_POC %}{{company.additional_POC}}{% endif %}
+
+    {# list of remarks #}
+    {% for rem in intern_remarks_list %}
+      {{rem.remark}}
+      {{rem.datetime}}
+      {{rem.user}}
+    {% empty %}
+      <h1>No remark made yet!</h1>
+    {% endfor %}
+
+{% endblock content %}
