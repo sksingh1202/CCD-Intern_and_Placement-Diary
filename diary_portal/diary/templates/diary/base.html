@@ -7,17 +7,21 @@
   	<!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'diary/base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'diary/company_list.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'diary/company_create.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'diary/company_intern_remarks.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'diary/timeline.css' %}">
     <title>Diary Portal</title>
   </head>
   <body>
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
-  		 <a class="navbar-brand mr-auto" href="{% url 'company_list' value1,kwarg=value2 %}">CCD Diary</a>
+  		 <a class="navbar-brand mr-auto" href="{% url 'company_list'  %}">CCD Diary</a>
         <div class="d-flex align-items-center ">
-         <span class="navbar-text mx-3 ">{{ request.user }}</span>
+         <span class="navbar-text mx-3 cool-font">{{ request.user }}</span>
           <a class="btn btn-outline-success my-2 my-sm-0 mx-2" href="{% url 'company_create' %}">Add Company</a>
          <a class="btn btn-outline-danger my-2 my-sm-0 mx-2" href ="">Logout</a>
 <!--         <a href="{% url 'logout' %}"><button class="btn btn-outline-success my-2 my-sm-0 " type="submit">Logout</button></a>-->

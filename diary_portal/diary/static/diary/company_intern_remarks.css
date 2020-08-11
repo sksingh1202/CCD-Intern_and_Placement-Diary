@@ -1,0 +1,33 @@
+img{
+    float: right;
+    width:200px;
+    height:150px;
+}
+li{
+    border-radius:20px;
+    padding:7px;
+    font-size:15px;
+    margin:5px;
+    font-weight:bold;
+}
+.fa {
+    padding:15px;
+  text-align: center;
+  text-decoration: none;
+  border-radius:50%;
+  font-size: 18px;
+}
+.fa:hover {
+  opacity: 0.7;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+div.card-body.bg-light.text-dark{
+    font-size:16px;
+}

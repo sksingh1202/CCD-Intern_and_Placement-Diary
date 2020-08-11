@@ -1,5 +1,9 @@
 *{
-	font-family: 'Playfair Display', serif;
+	font-family: 'Playfair Display','Allura', serif;
+}
+.cool-font{
+    font-family: 'Allura';
+    font-size: 35px;
 }
 a.navbar-brand{
 

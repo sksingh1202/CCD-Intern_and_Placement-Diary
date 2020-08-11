@@ -1,3 +1,7 @@
+.company_clicked{
+
+    cursor:pointer;
+}
 .list-body{
     margin-top: 50px;
     margin-bottom: 25px;

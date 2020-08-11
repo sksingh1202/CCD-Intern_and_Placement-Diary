@@ -2,42 +2,160 @@
 {% load static %}
 
 {% block content %}
-
   {% if user.last_name == "PLACEMENT" %}
+    <div class="jumbotron bg-dark text-light mx-5 my-4">
+      <div class="row">
+          <div class="col-2"><!-- image -->
+            {# company details #}
+            {% if company.logo %}
+              <img src="{{ company.logo.url }}" class="card-img rounded-circle" alt="Company-logo">
+            {% else %}
+              <img src="{% static 'diary/images/default_profile_pic.png' %}">
+            {% endif %}
+          </div>
+          <div class="col-10">
+            <h1 class="display-4">{{company.name}}</h1>
+            <div class="container">
+              <div class="row">
+                <div class="col-4"><!-- for HR's list -->
+                    <div>HR List:</div>
+                  <div class="accordion" id="accordionExample">
+                      {% for HR in company_placement_hrs %}
+                        {% if HR.placement %}
 
-    {# company details #}
-    {% if company.logo %}
-      <img src="{{ company.logo.url }}" class="card-img" alt="Company-logo">
-    {% else %}
-      <img src="{% static "diary/images/default_profile_pic.png" %}">
-   {% endif %}
-    {{company.name}}
-    {{company.email}}
 
-    {# list of hr's #}
-    {% for HR in company_placement_hrs %}
-      {% if HR.placement %}
-        {{HR.name}}
+                    <div class="card">
+                          <button class="btn btn-info btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{HR.pk}}" aria-expanded="false" aria-controls="collapse{{HR.pk}}">
+                            {{HR.name}}
+                          </button>
+                    </div>
+                    <div id="collapse{{HR.pk}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <div class="card-body bg-light text-dark">
+                          {% if HR.contact_number_1 %}
+                          {{HR.contact_number_1}} <br> {% endif %}
+                          {% if HR.contact_number_2 %}
+                          {{HR.contact_number_2}} <br> {% endif %}
+                          {{HR.email}} <br>
+                          <a href="{{ HR.facebook_id }}" class="fa fa-facebook"></a>  <a href="{{ HR.linkedin_id }}" class="fa fa-linkedin"></a>
+                      </div>
+                    </div>
+                      {% endif %}
+                      {% empty %}
+                  <p class="font-weight-lighter text-monospace  font-italic">No Placement hr's assigned yet!</p>
+                {% endfor %}
+                </div>
+              </div>
+              <div class="col-8"> <!-- for POC list -->
+                  <ul class="list-inline float-right">
+
+                    {# assigned POC's and CPOC's #}
+                  <li class="list-inline-item mx-1 text-primary bg-light">{{company.POC}} (POC)</li>
+                  <li class="list-inline-item mx-1 text-primary bg-light">{{company.CPOC}} (CPOC)</li>
+                    {% if company.additional_POC %}
+                  <li class="list-inline-item mx-1 text-primary bg-light">{{company.additional_POC}} (Additional CPOC)</li>
+                    {% endif %}
+                </ul>
+              </div>
+            </div>
+              </div>
+          </div>
+      </div>
+      </div>
+
+    <div class="container ">
+                        <ul class="nav nav-pills ">
+  <li class="nav-item ">
+      {% if company.internship %}
+      <a class="nav-link " href="{% url 'company_intern_remarks' company.slug %} ">Internship</a>
       {% endif %}
-    {% empty %}
-      <h2>No Placement hr's assigned yet!</h2>
-    {% endfor %}
+  </li>
+  <li class="nav-item">
+      {% if company.placement and user.last_name == "PLACEMENT" %}
+      <a class="nav-link active" href = "{% url 'company_placement_remarks_list' company.slug %} ">Placement</a>
+      {% endif %}
+  </li>
+           </ul>
+    </div>
+    <section>
+         <div class="container border">
+        <div class="title text-center"><h2>Timeline</h2>
+      </div>
+      <div class="timeline">
+          <ul>
+              {% for rem in placement_remarks_list %}
+              <li>
+                  <div class="content">
+                      <div class="date">{{rem.datetime}}</div>
+                      <p>{{rem.remark}}</p>
+                      <cite title="Source Title">-{{rem.user}}</cite>
+                  </div>
+                  <div class="time">
+                      {{rem.datetime}}
+                  </div>
+              </li>
+              {% empty %}
+                <h1>No remark made yet!</h1>
+                {% endfor %}
+              <div style="clear:both;"></div>
+          </ul>
+      </div>
+    </section>
+    <br><br><br>
 
-    {# assigned POC's and CPOC's #}
-    {{company.POC}}
-    {{company.CPOC}}
-    {% if company.additional_POC %}{{company.additional_POC}}{% endif %}
+<!--      {# list of remarks #}-->
+<!--    {% for rem in intern_remarks_list %}-->
+<!--    <div class="timeline-item">-->
+<!--        <div class="timeline-img"></div>-->
+<!--      <div class="timeline-content js&#45;&#45;fadeInLeft">-->
+<!--        <div class="date">{{rem.datetime}}</div>-->
+<!--        <p>{{rem.remark}}</p>-->
+<!--          <cite title="Source Title">-{{rem.user}}</cite>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--      {% empty %}-->
+<!--      <h1>No remark made yet!</h1>-->
+<!--    {% endfor %}-->
 
-    {# list of remarks #}
-    {% for rem in placement_remarks_list %}
-      {{rem.remark}}
-      {{rem.datetime}}
-      {{rem.user}}
-    {% empty %}
-      <h1>No remark made yet!</h1>
-    {% endfor %}
 
-  {% else %}
+<!--    {# company details #}-->
+<!--    {% if company.logo %}-->
+<!--      <img src="{{ company.logo.url }}" class="card-img" alt="Company-logo">-->
+<!--    {% else %}-->
+<!--      <img src="{% static "diary/images/default_profile_pic.png" %}">-->
+<!--   {% endif %}-->
+<!--    {{company.name}}-->
+<!--    {{company.email}}-->
+
+<!--    {# list of hr's #}-->
+<!--    {% for HR in company_intern_hrs %}-->
+<!--      {{HR.name}}-->
+<!--    {% empty %}-->
+<!--      <h2>No Internship hr's assigned yet!</h2>-->
+<!--    {% endfor %}-->
+
+<!--    {# assigned POC's and CPOC's #}-->
+<!--    {{company.POC}}-->
+<!--    {{company.CPOC}}-->
+<!--    {% if company.additional_POC %}{{company.additional_POC}}{% endif %}-->
+
+
+      <!--                          {# list of hr's #}-->
+<!--                        {% for HR in company_intern_hrs %}-->
+<!--                          <h2>HR List:</h2>-->
+<!--                          <li>{{HR.name}}</li>-->
+<!--                        {% empty %}-->
+<!--                          <p class="font-weight-lighter text-monospace  font-italic">No Internship hr's assigned yet!</p>-->
+<!--                        {% endfor %}-->
+
+<!--    {# list of remarks #}-->
+<!--    {% for rem in intern_remarks_list %}-->
+<!--      {{rem.remark}}-->
+<!--      {{rem.datetime}}-->
+<!--      {{rem.user}}-->
+<!--    {% empty %}-->
+<!--      <h1>No remark made yet!</h1>-->
+<!--    {% endfor %}-->
+{% else %}
     {% include "diary/_not_allowed.html" %}
   {% endif %}
 
