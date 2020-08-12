@@ -43,11 +43,11 @@ class Company(models.Model):
         verbose_name_plural = "Companies"
 
 class Remark(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.PROTECT, related_name='remarks')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='remarks')
+    company = models.ForeignKey(Company, on_delete=models.PROTECT, related_name='remarks', blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='remarks', blank=True)
     remark = models.TextField()
     datetime = models.DateTimeField(auto_now=True)
-    placement = models.BooleanField(default=False)
+    placement = models.BooleanField(default=False, blank = True)
 
     def __str__(self):
         return self.remark[:20] + "..."
