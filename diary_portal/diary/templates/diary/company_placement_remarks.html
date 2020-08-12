@@ -59,9 +59,14 @@
 
     <div class="container ">
       <div class="form-group">
-      <label for="inputRemark">Add Remark:</label>
-      <input type="text" class="form-control" id="inputRemark" placeholder="First Call">
-    </div>
+        {# <label for="inputRemark">Add Remark:</label> #}
+        {# <input type="text" class="form-control" id="inputRemark" placeholder="First Call"> #}
+        <form id="inputRemark" method="post">
+          {% csrf_token %}
+          {{form.remark}}
+          <input type="submit" value="Add To the Timeline">
+        </form>
+      </div>
     <ul class="nav nav-pills ">
       <li class="nav-item ">
         {% if company.internship %}
