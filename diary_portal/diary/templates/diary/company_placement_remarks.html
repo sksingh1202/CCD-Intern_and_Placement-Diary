@@ -1,8 +1,7 @@
 {% extends "diary/base.html" %}
 {% load static %}
-
 {% block content %}
-  {% if user.last_name == "PLACEMENT" %}
+{% if user.last_name == "PLACEMENT" %}
     <div class="jumbotron bg-dark text-light mx-5 my-4">
       <div class="row">
         <div class="col-2"><!-- image -->
@@ -58,15 +57,15 @@
     </div>
 
     <div class="container ">
-      <div class="form-group">
-        {# <label for="inputRemark">Add Remark:</label> #}
-        {# <input type="text" class="form-control" id="inputRemark" placeholder="First Call"> #}
-        <form id="inputRemark" method="post">
-          {% csrf_token %}
-          {{form.remark}}
-          <input type="submit" value="Add To the Timeline">
-        </form>
-      </div>
+<!--      <div class="form-group">-->
+<!--        {# <label for="inputRemark">Add Remark:</label> #}-->
+<!--        {# <input type="text" class="form-control" id="inputRemark" placeholder="First Call"> #}-->
+<!--        <form id="inputRemark" method="post">-->
+<!--          {% csrf_token %}-->
+<!--          {{form.remark}}-->
+<!--          <input type="submit" value="Add To the Timeline">-->
+<!--        </form>-->
+<!--      </div>-->
     <ul class="nav nav-pills ">
       <li class="nav-item ">
         {% if company.internship %}
@@ -83,6 +82,19 @@
   <section>
     <div class="container border">
     <div class="title text-center"><h2>Timeline</h2></div>
+      <div class="form-group">
+      {# <label for="inputRemark">Add Remark:</label> #}
+      {# <input type="text" class="form-control" id="inputRemark" placeholder="First Call"> #}
+      <form id="inputRemark" method="post">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center">
+          {{form.remark}}
+        </div>
+        <div class="d-flex justify-content-start ml-5">
+          <input class="btn btn-success m-2 d-flex justify-content-center" type="submit" value="Add To the Timeline">
+        </div>
+      </form>
+    </div>
       <div class="timeline">
         <ul>
           {% for rem in placement_remarks_list %}
@@ -103,7 +115,7 @@
     </div>
   </section>
   <br><br><br>
-  {% else %}
+{% else %}
     {% include "diary/_not_allowed.html" %}
   {% endif %}
 {% endblock content %}
