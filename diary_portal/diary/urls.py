@@ -30,6 +30,10 @@ urlpatterns = [
         views.CompanyInternRemarksListView.as_view(),
         name='company_intern_remarks'
     ),
+    path('companies/<slug>/add_hr',
+        views.HRCreateView.as_view(),
+        name='create_hr'
+    ),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

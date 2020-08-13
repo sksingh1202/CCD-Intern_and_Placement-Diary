@@ -1,0 +1,31 @@
+{% extends "diary/base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <h1>{{company.name}}'s new HR:</h1>
+  {% if company.logo %}
+    <img src="{{ company.logo.url }}" alt="Company-logo">
+  {% else %}
+    <img src="{% static 'diary/images/default_profile_pic.png' %}">
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{form.name}}
+    {# preffered contact number #}
+    {{form.contact_number_1}}
+    {{form.contact_number_2}}
+    {{form.email}}
+    {{form.linkedin_id}}
+    {{form.facebook_id}}
+    {% if company.placement and user.last_name == "PLACEMENT" %}
+      {{form.placement}}
+    {% endif %}
+    {% if company.internship %}
+      {{form.internship}}
+    {% endif %}
+    <input type="submit" value="Add HR">
+    
+  </form>
+{% endblock content %}
