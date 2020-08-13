@@ -1,7 +1,7 @@
 {% extends "diary/base.html" %}
 {% load static %}
 {% block content %}
-{% if user.last_name == "PLACEMENT" %}
+  {% if user.last_name == "PLACEMENT" and company.placement == True %}
     <div class="jumbotron bg-dark text-light mx-5 my-4">
       <div class="row">
         <div class="col-2"><!-- image -->
