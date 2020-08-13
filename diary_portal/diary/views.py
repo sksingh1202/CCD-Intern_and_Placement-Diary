@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import ModelFormMixin
-from django.urls import reverse_lazy
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import models
@@ -90,4 +89,19 @@ class CompanyInternRemarksListView(LoginRequiredMixin, ListView, ModelFormMixin)
         context['company'] = self.company
         context['company_intern_hrs'] = models.HR.objects.select_related('company').filter(company=self.company, internship=True)
         context['form'] = self.form
+        return context
+
+class HRCreateView(LoginRequiredMixin, CreateView):
+    model = models.HR
+    fields = ('name', 'contact_number_1', 'contact_number_2', 'email', 'linkedin_id', 'facebook_id', 'placement', 'internship')
+    template_name = 'diary/create_hr.html'
+    success_url = ''
+
+    def form_valid(self, form, **kwargs):
+        form.instance.company = get_object_or_404(models.Company, slug = self.kwargs['slug'])
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(*kwargs)
+        context['company'] = get_object_or_404(models.Company, slug = self.kwargs['slug'])
         return context

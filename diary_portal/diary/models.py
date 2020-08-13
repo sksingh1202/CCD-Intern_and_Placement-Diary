@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.text import slugify
 from datetime import datetime
 from diary_portal import settings
@@ -70,6 +70,12 @@ class HR(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        if self.placement:
+            return reverse_lazy('company_placement_remarks_list', kwargs={'slug':self.company.slug})
+        else:
+            return reverse_lazy('company_intern_remarks', kwargs={'slug':self.company.slug})
 
     class Meta:
         verbose_name = "HR"
