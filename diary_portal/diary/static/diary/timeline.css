@@ -1,8 +1,12 @@
 ul.nav.nav-tabs{
 
 }
+h2{
+    font-family: 'Allura';
+    font-size: 70px;
+}
 .title{
-    margin-top:50px;
+    margin-top:70px;
 }
 .timeline{
     margin-top:40px;
