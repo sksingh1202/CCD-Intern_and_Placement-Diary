@@ -85,12 +85,12 @@
       </form>
     </div>
       <div class="timeline">
-        <ul>
+        <ul class="">
           {% for rem in intern_remarks_list %}
-            <li>
-              <div class="content">
+            <li class="">
+              <div class="content ">
                 <div class="date">{{rem.datetime}}</div>
-                <p>{{rem.remark}}</p>
+                <p >{{rem.remark}}</p>
                 <cite title="Source Title">-{{rem.user}}</cite>
               </div>
               <div class="time">{{rem.datetime}}</div>
