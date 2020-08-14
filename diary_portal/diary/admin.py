@@ -22,10 +22,12 @@ class   HRAdmin(admin.ModelAdmin):
 class RemarkAdmin(admin.ModelAdmin):
     search_fields = ['company','user']
     list_filter = ['company','user']
-    list_display = ['remark','company','user','datetime','placement']
-    # list_display_links = ['remark']
-    # list_editable_links = ['remark']
+    list_display = ['remark_display','company','user','datetime','placement']
 
+    def remark_display(self, obj):
+        if len(obj.remark) > 30:
+            return obj.remark[:30] + "..."
+        return obj.remark
 
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Company,CompanyAdmin)
