@@ -9,15 +9,15 @@
         {% if company.logo %}
           <img src="{{ company.logo.url }}" class="card-img rounded-circle" alt="Company-logo">
         {% else %}
-          <img src="{% static 'diary/images/default_profile_pic.png' %}">
+          <img  src="{% static 'diary/images/default_profile_pic.png' %}">
         {% endif %}
       </div>
       <div class="col-10">
         <h1 class="display-4">{{company.name}}</h1>
         <div class="container">
-          <div class="row">
+          <div class="row ">
             <div class="col-4"><!-- for HR's list -->
-              <div>HR List:</div>
+              <div class="lead mb-2">HR List:</div>
               <div class="accordion" id="accordionExample">
                 {% for HR in company_intern_hrs %}
                   <div class="card">
@@ -38,7 +38,8 @@
                 {% endfor %}
               </div>
             </div>
-            <div class="col-8"> <!-- for POC list -->
+            <div class="col-2 "><a class="fa fa-user text-light bg-primary" href="{% url 'create_hr' company.slug %}"></a></div>
+            <div class="col-6"> <!-- for POC list -->
               <ul class="list-inline float-right">
                 {# assigned POC's and CPOC's #}
                 <li class="list-inline-item mx-1 text-primary bg-light">{{company.POC}} (POC)</li>
