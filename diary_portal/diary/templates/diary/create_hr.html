@@ -2,30 +2,58 @@
 {% load static %}
 
 {% block content %}
-
-  <h1>{{company.name}}'s new HR:</h1>
-  {% if company.logo %}
-    <img src="{{ company.logo.url }}" alt="Company-logo">
-  {% else %}
-    <img src="{% static 'diary/images/default_profile_pic.png' %}">
-  {% endif %}
-
+<!--  {% if company.logo %}-->
+<!--    <img src="{{ company.logo.url }}" alt="Company-logo">-->
+<!--  {% else %}-->
+<!--    <img src="{% static 'diary/images/default_profile_pic.png' %}">-->
+<!--  {% endif %}-->
+<div class="space"></div>
+<div class="space"></div>
+<div class="space"></div>
+<div class="create_hr m-auto p-3 container text-left d-flex  justify-content-center">
+   <div class="card p-4 mx-4 ">
+  <h1 class="my-4 card-title">{{company.name}}'s new HR:</h1>
   <form method="post">
     {% csrf_token %}
-    {{form.name}}
-    {# preffered contact number #}
-    {{form.contact_number_1}}
-    {{form.contact_number_2}}
-    {{form.email}}
-    {{form.linkedin_id}}
-    {{form.facebook_id}}
+    <div>
+      <label>HR's name:</label>
+      {{form.name}}
+    </div>
+    <div>
+      <label>Preffered Contact Number:</label>
+      {# preffered contact number #}
+      {{form.contact_number_1}}
+    </div>
+    <div>
+      <label>Another Contact Number:</label>
+      {{form.contact_number_2}}
+    </div>
+    <div>
+      <label>Email Address:</label>
+      {{form.email}}
+    </div>
+    <div>
+      <label>Linkedin :</label>
+      {{form.linkedin_id}}
+    </div>
+    <div>
+      <label>Facebook :</label>
+      {{form.facebook_id}}
+    </div>
+    <div>
     {% if company.placement and user.last_name == "PLACEMENT" %}
-      {{form.placement}}
+      <label>Placement concerned:</label>
+        {{form.placement}}
+      {% endif %}
+    </div>
+    <div>
+      <label>Internship concerned:</label>
+      {% if company.internship %}
+        {{form.internship}}
     {% endif %}
-    {% if company.internship %}
-      {{form.internship}}
-    {% endif %}
-    <input type="submit" value="Add HR">
-    
+      </div>
+    <input class="btn btn-success" type="submit" value="Add HR">
   </form>
+   </div>
+  </div>
 {% endblock content %}
