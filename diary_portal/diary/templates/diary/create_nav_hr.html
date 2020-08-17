@@ -1,0 +1,36 @@
+{% comment %} {% extends "diary/base.html" %}
+
+{% block content %}
+  <h1>HR Details:</h1>
+  <div class="container">
+    {{form.name}}
+  </div>
+  <div class="container">
+    {{form.company}}
+  </div>
+  <div class="container">
+    {{form.contact_number_1}}
+  </div>
+  <div class="container">
+    {{form.contact_number_2}}
+  </div>
+  <div class="container">
+    {{form.email}}
+  </div>
+  <div class="container">
+    {{form.linkedin_id}}
+  </div>
+  <div class="container">
+    {{form.facebook_id}}
+  </div>
+  {% if company.placement and user.last_name == "PLACEMENT" %}
+    <div class="container">
+      {{form.placement}}
+    </div>
+  {% endif %}
+  {% if company.internship %}
+    <div class="container">
+      {{form.internship}}
+    </div>
+  {% endif %}
+{% endblock content %} {% endcomment %}

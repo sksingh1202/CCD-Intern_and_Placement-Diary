@@ -102,6 +102,16 @@ class HRCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(*kwargs)
+        context = super().get_context_data(**kwargs)
         context['company'] = get_object_or_404(models.Company, slug = self.kwargs['slug'])
         return context
+
+# class HRNavCreateView(LoginRequiredMixin, CreateView):
+#     model = models.HR
+#     fields = ('name', 'company', 'contact_number_1', 'contact_number_2', 'email', 'linkedin_id', 'facebook_id', 'placement', 'internship')
+#     template_name = 'diary/create_nav_hr.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['company'] = get_object_or_404(models.Company, slug = self.kwargs['slug'])
+#         return context
