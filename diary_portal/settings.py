@@ -131,7 +131,7 @@ LOGIN_REDIRECT_URL = 'company_list'
 LOGOUT_REDIRECT_URL = 'login'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'diary/static'),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'diary/media/diary/images/')

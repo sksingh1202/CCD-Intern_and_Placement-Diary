@@ -95,7 +95,6 @@ class HRCreateView(LoginRequiredMixin, CreateView):
     model = models.HR
     fields = ('name', 'contact_number_1', 'contact_number_2', 'email', 'linkedin_id', 'facebook_id', 'placement', 'internship')
     template_name = 'diary/create_hr.html'
-    success_url = ''
 
     def form_valid(self, form, **kwargs):
         form.instance.company = get_object_or_404(models.Company, slug = self.kwargs['slug'])
