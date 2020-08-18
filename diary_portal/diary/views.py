@@ -7,12 +7,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from . import models
 from . import forms
 
-# Create your views here.
-
 class CompanyListView(LoginRequiredMixin, ListView):
     model = models.Company
-    fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'logo', 'placement', 'internship')
+    fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')
     template_name = 'diary/company_list.html'
+
+
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = models.Company

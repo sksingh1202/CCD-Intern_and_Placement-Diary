@@ -8,11 +8,7 @@
         <div class="card mb-3 p-2">
           <div class="row no-gutters">
             <div class="col-md-2 d-flex align-items-center">
-              {% if company.logo %}
-                <img src="{{ company.logo.url }}" class="rounded-circle card-img" alt="Company-logo" >
-              {% else %}
-                <img class="rounded-circle" src="{% static 'diary/images/default_profile_pic.png' %}" >
-              {% endif %}
+                <img src="https://logo.clearbit.com/{{company.name}}.com?size=500" class=" card-img" alt="Company-logo" >
             </div>
             <div class="col-md-10">
               <div class="card-body row d-flex align-items-center">
