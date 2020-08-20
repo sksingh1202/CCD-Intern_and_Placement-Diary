@@ -7,12 +7,22 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from . import models
 from . import forms
 
+import datetime
+
+# Create your views here.
+
 class CompanyListView(LoginRequiredMixin, ListView):
     model = models.Company
     fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')
     template_name = 'diary/company_list.html'
 
+    def get_queryset(self):
+        return models.Company.objects.filter(datetime__year=self.kwargs['year'])
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['yr'] = self.kwargs['year']
+        return context
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = models.Company
@@ -38,7 +48,7 @@ class CompanyPlacementRemarksListView(LoginRequiredMixin, ListView, ModelFormMix
 
         self.object = self.form.save(commit = False)
 
-        self.object.company = get_object_or_404(models.Company, slug = self.kwargs['slug'])
+        self.object.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year=self.kwargs['year'])
         self.object.user = request.user
         self.object.placement = True
         self.object.save()
@@ -46,14 +56,18 @@ class CompanyPlacementRemarksListView(LoginRequiredMixin, ListView, ModelFormMix
         return self.get(request, *args, **kwargs)
 
     def get_queryset(self):
-        self.company = get_object_or_404(models.Company, slug = self.kwargs['slug'])
-        return models.Remark.objects.select_related('company').filter(company=self.company, placement=True)
+        self.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], placement=True, year=self.kwargs['year'])
+        return models.Remark.objects.select_related('company').filter(company=self.company, placement=True, company__datetime__year=self.kwargs['year'])
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['company'] = self.company
         context['company_placement_hrs'] = models.HR.objects.select_related('company').filter(company=self.company, placement=True)
-        context['form'] = self.form
+        if datetime.date.today().year == self.kwargs['year']:
+            context['form'] = self.form
+        else:
+            context['form'] = None
+        context['yr'] = self.kwargs['year']
         return context
 
 class CompanyInternRemarksListView(LoginRequiredMixin, ListView, ModelFormMixin):
@@ -73,7 +87,7 @@ class CompanyInternRemarksListView(LoginRequiredMixin, ListView, ModelFormMixin)
 
         self.object = self.form.save(commit = False)
 
-        self.object.company = get_object_or_404(models.Company, slug = self.kwargs['slug'])
+        self.object.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = self.kwargs['year'])
         self.object.user = request.user
         self.object.placement = False
         self.object.save()
@@ -81,14 +95,18 @@ class CompanyInternRemarksListView(LoginRequiredMixin, ListView, ModelFormMixin)
         return self.get(request, *args, **kwargs)
 
     def get_queryset(self):
-        self.company = get_object_or_404(models.Company, slug = self.kwargs['slug'])
-        return models.Remark.objects.select_related('company').filter(company=self.company, placement=False)
+        self.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], internship=True, year = self.kwargs['year'])
+        return models.Remark.objects.select_related('company').filter(company=self.company, placement=False, company__datetime__year=self.kwargs['year'])
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['company'] = self.company
         context['company_intern_hrs'] = models.HR.objects.select_related('company').filter(company=self.company, internship=True)
-        context['form'] = self.form
+        if datetime.date.today().year == self.kwargs['year']:
+            context['form'] = self.form
+        else:
+            context['form'] = None
+        context['yr'] = self.kwargs['year']
         return context
 
 class HRCreateView(LoginRequiredMixin, CreateView):
@@ -97,12 +115,12 @@ class HRCreateView(LoginRequiredMixin, CreateView):
     template_name = 'diary/create_hr.html'
 
     def form_valid(self, form, **kwargs):
-        form.instance.company = get_object_or_404(models.Company, slug = self.kwargs['slug'])
+        form.instance.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['company'] = get_object_or_404(models.Company, slug = self.kwargs['slug'])
+        context['company'] = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
         return context
 
 # class HRNavCreateView(LoginRequiredMixin, CreateView):

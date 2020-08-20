@@ -14,7 +14,7 @@ urlpatterns = [
         auth_views.LogoutView.as_view(),
         name='logout'
     ),
-    path('companies/',
+    path('companies/<int:year>/',
         views.CompanyListView.as_view(),
         name='company_list'
     ),
@@ -22,15 +22,15 @@ urlpatterns = [
         views.CompanyCreateView.as_view(),
         name='company_create'
     ),
-    path('companies/placement/<slug>/',
+    path('companies/placement/<slug>/<int:year>/',
         views.CompanyPlacementRemarksListView.as_view(),
         name='company_placement_remarks_list'
     ),
-    path('companies/intern/<slug>/',
+    path('companies/intern/<slug>/<int:year>/',
         views.CompanyInternRemarksListView.as_view(),
         name='company_intern_remarks'
     ),
-    path('companies/<slug>/add_hr',
+    path('companies/<slug>/add_hr/',
         views.HRCreateView.as_view(),
         name='create_hr'
     ),
