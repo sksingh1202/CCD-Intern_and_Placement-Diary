@@ -13,7 +13,7 @@ import datetime
 
 class CompanyListView(LoginRequiredMixin, ListView):
     model = models.Company
-    fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'logo', 'placement', 'internship')
+    fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')
     template_name = 'diary/company_list.html'
 
     def get_queryset(self):

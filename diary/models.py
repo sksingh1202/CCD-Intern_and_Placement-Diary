@@ -11,6 +11,8 @@ import datetime as python_datetime
 # see: https://github.com/stefanfoulis/django-phonenumber-field
 from phonenumber_field.modelfields import PhoneNumberField
 
+#company logo api (clearbit)
+
 # Create your models here.
 
 # this is for making a custom user model which adds in additional features from the built in
@@ -25,7 +27,7 @@ class Company(models.Model):
     CPOC = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='company_cpoc')
     additional_POC = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True)
-    logo = models.ImageField(blank=True)
+    # logo = models.ImageField(blank=True)
     placement = models.BooleanField(default=False)
     internship = models.BooleanField(default=False)
     slug = models.SlugField(editable=False, allow_unicode=True, blank=True)
