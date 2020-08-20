@@ -40,8 +40,9 @@
                   {% endfor %}
                 </div>
               </div>
-            <div class="col-2 "><a class="fa fa-user text-light bg-primary" href="{% url 'create_hr' company.slug %}"></a>
-              </div>
+              {% if form %}
+                <div class="col-2 "><a class="fa fa-user text-light bg-primary" href="{% url 'create_hr' slug=company.slug %}"></a></div>
+              {% endif %}
               <div class="col-6"> <!-- for POC list -->
                 <ul class="list-inline float-right">
                   {# assigned POC's and CPOC's #}
@@ -71,12 +72,12 @@
     <ul class="nav nav-pills ">
       <li class="nav-item ">
         {% if company.internship %}
-          <a class="nav-link " href="{% url 'company_intern_remarks' company.slug %} ">Internship</a>
+          <a class="nav-link " href="{% url 'company_intern_remarks' slug=company.slug year=yr %} ">Internship</a>
         {% endif %}
       </li>
       <li class="nav-item">
         {% if company.placement and user.last_name == "PLACEMENT" %}
-          <a class="nav-link active" href = "{% url 'company_placement_remarks_list' company.slug %} ">Placement</a>
+          <a class="nav-link active" href = "{% url 'company_placement_remarks_list' slug=company.slug year=yr %} ">Placement</a>
         {% endif %}
       </li>
     </ul>
@@ -92,9 +93,11 @@
         <div class="d-flex justify-content-center">
           {{form.remark}}
         </div>
-        <div class="d-flex justify-content-start ml-5">
-          <input class="btn btn-success m-2 d-flex justify-content-center" type="submit" value="Add To the Timeline">
-        </div>
+        {% if form %}
+          <div class="d-flex justify-content-start ml-5">
+            <input class="btn btn-success m-2 d-flex justify-content-center" type="submit" value="Add To the Timeline">
+          </div>
+        {% endif %}
       </form>
     </div>
       <div class="timeline">
@@ -117,7 +120,9 @@
     </div>
   </section>
   <br><br><br>
-{% else %}
+  {% elif user.last_name != "PLACEMENT" %}
     {% include "diary/_not_allowed.html" %}
+  {% else %}
+    {% include "diary/_404.html" %}
   {% endif %}
 {% endblock content %}
