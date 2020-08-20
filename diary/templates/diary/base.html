@@ -22,7 +22,7 @@
   <body>
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
-  		  <a class="navbar-brand mr-auto" href="{% url 'company_list'  %}">CCD Diary</a>
+  		  <a class="navbar-brand mr-auto" href="{% url 'company_list' year=2020 %}">CCD Diary</a>
         <div class="d-flex align-items-center ">
           <span class="navbar-text mx-3 cool-font">{{ request.user }}</span>
           <a class="btn btn-outline-success my-2 my-sm-0 mx-2" href="{% url 'company_create' %}">Add Company</a>
