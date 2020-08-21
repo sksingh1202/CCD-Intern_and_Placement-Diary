@@ -38,6 +38,14 @@ urlpatterns = [
     #     views.HRNavCreateView.as_view(),
     #     name='create_nav_hr'
     # ),
+    path('companies/<slug>/hrs/',
+        views.HRListView.as_view(),
+        name='hr_list'
+    ),
+    path('companies/hrs/',
+        views.HRPresentListView.as_view(),
+        name='hr_present_list'
+    ),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
