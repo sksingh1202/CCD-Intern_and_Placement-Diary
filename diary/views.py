@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import ModelFormMixin
@@ -132,3 +132,28 @@ class HRCreateView(LoginRequiredMixin, CreateView):
 #         context = super().get_context_data(**kwargs)
 #         context['company'] = get_object_or_404(models.Company, slug = self.kwargs['slug'])
 #         return context
+
+class HRListView(LoginRequiredMixin, ListView):
+    model = models.HR
+    fields = ('name', 'company', 'contact_number_1', 'contact_number_2', 'email', 'linkedin_id', 'facebook_id', 'placement', 'internship')
+    template_name = 'diary/hr_list.html'
+    context_object_name = 'hr_list'
+
+    def get_queryset(self):
+        self.company = get_list_or_404(models.Company, slug=self.kwargs['slug'])
+        return models.HR.objects.select_related('company').filter(company__slug=self.kwargs['slug'])
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['company_name'] = self.company[0].name
+        return context
+
+class HRPresentListView(LoginRequiredMixin, ListView):
+    model = models.HR
+    fields = ('name', 'company', 'contact_number_1', 'contact_number_2', 'email', 'linkedin_id', 'facebook_id', 'placement', 'internship')
+    template_name = 'diary/hr_present_list.html'
+    context_object_name = 'hr_present_list'
+
+    def get_queryset(self):
+        self.year = datetime.date.today().year
+        return models.HR.objects.filter(company__year=self.year)

@@ -1,0 +1,33 @@
+{% extends "diary/base.html" %}
+
+{% block content %}
+  <h1>List of HR's of this season.</h1>
+  <table>
+    <thead>
+      <th class="table-warning">Name</th>
+      <th class="table-warning">Company</th>
+      <th class="table-warning">Preferred Contact</th>
+      <th class="table-warning">Alternate Contact</th>
+      <th class="table-warning">Email</th>
+      <th class="table-warning">Linked In</th>
+      <th class="table-warning">Facebook</th>
+      <th class="table-warning">Placement Regarding</th>
+      <th class="table-warning">Intern Regarding</th>
+    </thead>
+    <tbody>
+      {% for hr in hr_present_list %}
+        <tr class="table-primary">
+          <td>{{hr.name}}</td>
+          <td>{{hr.company.name}}</td>
+          <td>{{hr.contact_number_1}}</td>
+          <td>{{hr.contact_number_2}}</td>
+          <td>{{hr.email}}</td>
+          <td>{{hr.linkedin_id}}</td>
+          <td>{{hr.facebook_id}}</td>
+          {% if hr.placement %} <td>Yes</td> {% else %} <td>No</td> {% endif %}
+          {% if hr.internship %} <td>Yes</td> {% else %} <td>No</td> {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
