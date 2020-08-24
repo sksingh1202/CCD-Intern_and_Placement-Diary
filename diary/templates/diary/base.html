@@ -25,6 +25,22 @@
   		  <a class="navbar-brand mr-auto" href="{% url 'company_list' year=2020 %}">CCD Diary</a>
         <div class="d-flex align-items-center ">
           <span class="navbar-text mx-3 cool-font">{{ request.user }}</span>
+        {% block dropdown-block %}
+          <div class="btn-group">
+          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{yr}}
+          </button>
+          <div class="dropdown-menu">
+            {% for y in yr_list %}
+            <a class="dropdown-item" href="{% url 'company_list' year=y %}">{{y}}</a>
+            {% endfor %}
+<!--            <a class="dropdown-item" href="#">Another action</a>-->
+<!--            <a class="dropdown-item" href="#">Something else here</a>-->
+<!--            <div class="dropdown-divider"></div>-->
+<!--            <a class="dropdown-item" href="#">Separated link</a>-->
+          </div>
+        </div>
+          {% endblock %}
           <a class="btn btn-outline-success my-2 my-sm-0 mx-2" href="{% url 'company_create' %}">Add Company</a>
           <a class="btn btn-outline-danger my-2 my-sm-0 mx-2" href ="{% url 'logout' %}">Logout</a>
         </div>

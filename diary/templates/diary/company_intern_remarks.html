@@ -1,45 +1,60 @@
 {% extends "diary/base.html" %}
 {% load static %}
 
+{% block dropdown-block %}
+<div class="btn-group">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{yr}}
+          </button>
+          <div class="dropdown-menu">
+            {% for y in yr_list %}
+            <a class="dropdown-item" href="{% url 'company_intern_remarks' slug=company.slug year=y %}">{{y}}</a>
+            {% endfor %}
+<!--            <a class="dropdown-item" href="#">Another action</a>-->
+<!--            <a class="dropdown-item" href="#">Something else here</a>-->
+<!--            <div class="dropdown-divider"></div>-->
+<!--            <a class="dropdown-item" href="#">Separated link</a>-->
+          </div>
+        </div>
+{% endblock %}
 {% block content %}
-  <div class="jumbotron bg-dark text-light mx-5 my-4">
-    <div class="row">
-      <div class="col-2"><!-- image -->
-        {# company details #}
-        {% if company.logo %}
-          <img src="{{ company.logo.url }}" class="card-img rounded-circle" alt="Company-logo">
-        {% else %}
-          <img  src="{% static 'diary/images/default_profile_pic.png' %}">
-        {% endif %}
-      </div>
-      <div class="col-10">
-        <h1 class="display-4">{{company.name}}</h1>
-        <div class="container">
-          <div class="row ">
-            <div class="col-4"><!-- for HR's list -->
-              <div class="lead mb-2">HR List:</div>
-              <div class="accordion" id="accordionExample">
-                {% for HR in company_intern_hrs %}
-                  <div class="card">
-                    <button class="btn btn-info btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{HR.pk}}" aria-expanded="false" aria-controls="collapse{{HR.pk}}">{{HR.name}}</button>
-                  </div>
-                  <div id="collapse{{HR.pk}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <div class="card-body bg-light text-dark">
-                      {% if HR.contact_number_1 %}
-                      {{HR.contact_number_1}} <br> {% endif %}
-                      {% if HR.contact_number_2 %}
-                      {{HR.contact_number_2}} <br> {% endif %}
-                      {{HR.email}} <br>
-                      <a href="{{ HR.facebook_id }}" class="fa fa-facebook"></a>  <a href="{{ HR.linkedin_id }}" class="fa fa-linkedin"></a>
-                    </div>
-                  </div>
-                {% empty %}
-                  <p class="font-weight-lighter text-monospace  font-italic">No Internship hr's assigned yet!</p>
-                {% endfor %}
+<div class="jumbotron bg-dark text-light mx-5 my-4">
+  <div class="row">
+    <div class="col-2"><!-- image -->
+      {# company details #}
+      <img src="https://logo.clearbit.com/{{company.name}}.com?size=500" class=" card-img" alt="Unable to fetch Image!" >
+    </div>
+    <div class="col-10">
+      <h1 class="display-4">{{company.name}}</h1>
+      <div class="container">
+        <div class="row ">
+          <div class="col-4"><!-- for HR's list -->
+            <div class="lead mb-2">HR List:</div>
+            <div class="accordion" id="accordionExample">
+              {% for HR in company_intern_hrs %}
+              <div class="card">
+                <button class="btn btn-info btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{HR.pk}}" aria-expanded="false" aria-controls="collapse{{HR.pk}}">{{HR.name}}</button>
               </div>
+            <div id="collapse{{HR.pk}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="d-flex justify-content-center bg-light"><img class="profile-pic" src="https://robohash.org/{{HR.name}}.png"></div>
+              <div class="card-body bg-light d-flex justify-content-center text-dark">
+                {% if HR.contact_number_1 %}
+                <a class="fa fa-phone bg-warning text-white m-1" href="tel:{{HR.contact_number_1}}"></a>
+                {% endif %}
+                {% if HR.contact_number_2 %}
+                <a class="fa fa-phone bg-warning text-white m-1" href="tel:{{HR.contact_number_2}}"></a>
+                {% endif %}
+                <a class="fa fa-paper-plane bg-primary text-white m-1" href="mailto:{{HR.email}}"></a>
+                <a href="{{ HR.facebook_id }}" target="_blank" class="fa fa-facebook m-1"></a>  <a href="{{ HR.linkedin_id }}" target="_blank" class="fa fa-linkedin m-1"></a>
             </div>
+            </div>
+            {% empty %}
+            <p class="font-weight-lighter text-monospace  font-italic">No Internship hr's assigned yet!</p>
+            {% endfor %}
+          </div>
+        </div>
             {% if form %}
-              <div class="col-2 "><a class="fa fa-user text-light bg-primary" href="{% url 'create_hr' slug=company.slug %}"></a></div>
+            <div class="col-2 "><a class="fa fa-user text-light bg-primary" href="{% url 'create_hr' slug=company.slug %}"></a></div>
             {% endif %}
             <div class="col-6"> <!-- for POC list -->
               <ul class="list-inline float-right">
@@ -47,7 +62,7 @@
                 <li class="list-inline-item mx-1 text-primary bg-light">{{company.POC}} (POC)</li>
                 <li class="list-inline-item mx-1 text-primary bg-light">{{company.CPOC}} (CPOC)</li>
                 {% if company.additional_POC %}
-                  <li class="list-inline-item mx-1 text-primary bg-light">{{company.additional_POC}} (Additional CPOC)</li>
+                <li class="list-inline-item mx-1 text-primary bg-light">{{company.additional_POC}} (Additional CPOC)</li>
                 {% endif %}
               </ul>
             </div>
