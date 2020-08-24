@@ -34,3 +34,7 @@ img{
 .fa.fa-user{
     display:inline;
 }
+img.profile-pic{
+    width:200px;
+    height:200px;
+}

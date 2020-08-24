@@ -1,13 +1,17 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
-from django.views.generic.edit import ModelFormMixin
+import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from . import models
-from . import forms
+from django.shortcuts import get_object_or_404, get_list_or_404
+from django.views.generic.edit import CreateView
+from django.views.generic.edit import ModelFormMixin
+from django.views.generic.list import ListView
 
-import datetime
+from . import forms
+from . import models
+
+#api related code
+# import clearbit
+# clearbit.key = 'sk_39c19112e75518aa4353364ab512452e'
 
 # Create your views here.
 
@@ -22,11 +26,15 @@ class CompanyListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['yr'] = self.kwargs['year']
+        context['yr_list'] = [*range(2015, datetime.date.today().year + 1)]
+        # context['logo'] = clearbit.NameToDomain.find(name='Clearbit')['logo']
+        # print(context)
+        # print(context['yr_list'])
         return context
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = models.Company
-    fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'logo', 'placement', 'internship')
+    fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')
     template_name = 'diary/company_create.html'
 
 # you may like to refer: https://docs.djangoproject.com/en/3.0/topics/class-based-views/generic-display/#generic-views-of-objects
@@ -68,6 +76,7 @@ class CompanyPlacementRemarksListView(LoginRequiredMixin, ListView, ModelFormMix
         else:
             context['form'] = None
         context['yr'] = self.kwargs['year']
+        context['yr_list'] = [*range(2015, datetime.date.today().year + 1)]
         return context
 
 class CompanyInternRemarksListView(LoginRequiredMixin, ListView, ModelFormMixin):
@@ -107,6 +116,7 @@ class CompanyInternRemarksListView(LoginRequiredMixin, ListView, ModelFormMixin)
         else:
             context['form'] = None
         context['yr'] = self.kwargs['year']
+        context['yr_list'] = [*range(2015, datetime.date.today().year + 1)]
         return context
 
 class HRCreateView(LoginRequiredMixin, CreateView):

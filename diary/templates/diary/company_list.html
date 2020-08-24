@@ -5,11 +5,16 @@
   {% for company in object_list %}
   {% if user.last_name == "PLACEMENT" or not company.placement or company.internship %}
     <div class="container list-body">
+    {% if not company.internship %}
+      <div class="company_clicked" onclick="window.location.href = '{% url 'company_placement_remarks_list' slug=company.slug year=yr %} ';">
+    {% else %}
       <div class="company_clicked" onclick="window.location.href = '{% url 'company_intern_remarks' slug=company.slug year=yr %} ';">
+    {% endif %}
         <div class="card mb-3 p-2">
           <div class="row no-gutters">
             <div class="col-md-2 d-flex align-items-center">
-              <img src="https://logo.clearbit.com/{{company.name}}.com?size=500" class=" card-img" alt="Unable to fetch Image!" >
+              <img src="http://logo.clearbit.com/{{company.name}}.com?size=500" class=" card-img" alt="Unable to fetch Image!" >
+<!--              <img src="{{logo}}?size=500" class=" card-img" alt="Unable to fetch Image!" >-->
             </div>
             <div class="col-md-10">
               <div class="card-body row d-flex align-items-center">
