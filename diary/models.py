@@ -5,13 +5,17 @@ from django.urls import reverse, reverse_lazy
 from django.utils.text import slugify
 from django.utils import timezone
 from diary_portal import settings
+
 import datetime as python_datetime
+import os
 
 # this is from an external package:django-phonenumber-field
 # see: https://github.com/stefanfoulis/django-phonenumber-field
 from phonenumber_field.modelfields import PhoneNumberField
 
-#company logo api (clearbit)
+#api related code
+import clearbit
+clearbit.key = os.environ.get('CLEARBIT_KEY')
 
 # Create your models here.
 
@@ -24,7 +28,7 @@ class User(AbstractUser):
 class Company(models.Model):
     name = models.CharField(max_length=100)
     POC = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='company_poc')
-    CPOC = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='company_cpoc')
+    CPOC = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='company_cpoc')
     additional_POC = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True)
     # logo = models.ImageField(blank=True)
@@ -35,6 +39,7 @@ class Company(models.Model):
     datetime = models.DateTimeField(default=timezone.now)
     # you need to do editable = False and remove default during deployment
     year = models.IntegerField(blank=True, default=python_datetime.date.today().year)
+    response = models.JSONField(blank=True, editable=False)
 
     def __str__(self):
         return self.name + " (" + str(self.year) + ")"
@@ -44,6 +49,7 @@ class Company(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        self.response = clearbit.NameToDomain.find(name=self.name)
         # uncomment during deployment
         # self.year = python_datetime.date.today().year
         super().save(*args, **kwargs)

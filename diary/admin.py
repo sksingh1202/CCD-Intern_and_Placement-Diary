@@ -7,8 +7,8 @@ from . import models
 class CompanyAdmin(admin.ModelAdmin):
     search_fields = ['name_display']
     list_filter = ['POC','placement','internship']
-    list_display = ['name_display','POC','additional_POC','CPOC','placement','internship']
-    list_editable = ['POC','additional_POC','CPOC']
+    list_display = ['name_display','POC','additional_POC','placement','internship']
+    list_editable = ['POC','additional_POC']
 
     def name_display(self, obj):
         return obj.name + " (" + str(obj.year) + ")"

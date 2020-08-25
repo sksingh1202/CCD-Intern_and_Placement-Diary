@@ -60,7 +60,9 @@
               <ul class="list-inline float-right">
                 {# assigned POC's and CPOC's #}
                 <li class="list-inline-item mx-1 text-primary bg-light">{{company.POC}} (POC)</li>
-                <li class="list-inline-item mx-1 text-primary bg-light">{{company.CPOC}} (CPOC)</li>
+                {% for CPOC in company.CPOC.all %}
+                <li class="list-inline-item mx-1 text-primary bg-light">{{CPOC}} (CPOC)</li>
+                {% endfor %}
                 {% if company.additional_POC %}
                 <li class="list-inline-item mx-1 text-primary bg-light">{{company.additional_POC}} (Additional CPOC)</li>
                 {% endif %}
