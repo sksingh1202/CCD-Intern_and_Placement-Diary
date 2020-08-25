@@ -34,7 +34,7 @@ class CompanyListView(LoginRequiredMixin, ListView):
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = models.Company
-    fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')
+    form_class = forms.CompanyForm
     template_name = 'diary/company_create.html'
 
 # you may like to refer: https://docs.djangoproject.com/en/3.0/topics/class-based-views/generic-display/#generic-views-of-objects
