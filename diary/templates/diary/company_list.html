@@ -22,7 +22,9 @@
                   <h4 class="card-title ">{{company.name}}</h4>
                   <div class="card-text d-flex justify-content-start ">
                     <span class="badge badge-info badge-pill POC">{{company.POC}}</span>
-                    <span class="badge badge-info badge-pill POC">{{company.CPOC}}</span>
+                    {% for CPOC in company.CPOC.all %}
+                      <span class="badge badge-info badge-pill POC">{{CPOC}}</span>
+                    {% endfor %}
                     <span class="badge badge-info badge-pill POC">{% if company.additional_POC %}{{company.additional_POC}}{% endif %}</span>
                   </div>
                 </div>
