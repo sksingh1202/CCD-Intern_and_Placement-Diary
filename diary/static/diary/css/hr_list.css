@@ -1,0 +1,6 @@
+.table-container{
+    margin:70px;
+}
+.selected-row:hover{
+    background-color:#CBE0FF;
+}

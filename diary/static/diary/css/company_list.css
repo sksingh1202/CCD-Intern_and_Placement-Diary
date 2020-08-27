@@ -1,3 +1,4 @@
+
 .company_clicked{
 
     cursor:pointer;
@@ -5,6 +6,7 @@
 .list-body{
     margin-top: 50px;
     margin-bottom: 25px;
+    width:100%;
 }
 a.tags{
     font-size: 16px;

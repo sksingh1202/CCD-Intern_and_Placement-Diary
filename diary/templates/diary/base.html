@@ -15,11 +15,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'diary/css/company_intern_remarks.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'diary/css/timeline.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'diary/css/not_allowed.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'diary/css/hr_list.css' %}">
 
     <title>Diary Portal</title>
   </head>
 
   <body>
+    <a href="{% url 'company_list' year=2020 %}" class="home-icon"><i class=" fa fa-home"></i></a>
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
   		  <a class="navbar-brand mr-auto" href="{% url 'company_list' year=2020 %}">CCD Diary</a>
@@ -34,15 +36,12 @@
             {% for y in yr_list %}
             <a class="dropdown-item" href="{% url 'company_list' year=y %}">{{y}}</a>
             {% endfor %}
-<!--            <a class="dropdown-item" href="#">Another action</a>-->
-<!--            <a class="dropdown-item" href="#">Something else here</a>-->
-<!--            <div class="dropdown-divider"></div>-->
-<!--            <a class="dropdown-item" href="#">Separated link</a>-->
           </div>
         </div>
           {% endblock %}
-          <a class="btn btn-outline-success my-2 my-sm-0 mx-2" href="{% url 'company_create' %}">Add Company</a>
-          <a class="btn btn-outline-danger my-2 my-sm-0 mx-2" href ="{% url 'logout' %}">Logout</a>
+          <a class="btn btn-info my-2 my-sm-0 mx-2" href="{% url 'hr_present_list' %}">All HR's</a>
+          <a class="btn btn-success my-2 my-sm-0 mx-2" href="{% url 'company_create' %}">Add Company</a>
+          <a class="btn btn-danger my-2 my-sm-0 mx-2" href ="{% url 'logout' %}">Logout</a>
         </div>
       </div>
 	 </nav>
