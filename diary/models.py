@@ -16,7 +16,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 #api related code
 import clearbit
 clearbit.key = os.environ.get('CLEARBIT_KEY')
-
 # Create your models here.
 
 # this is for making a custom user model which adds in additional features from the built in

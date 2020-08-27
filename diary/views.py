@@ -10,8 +10,7 @@ from . import forms
 from . import models
 
 #api related code
-# import clearbit
-# clearbit.key = 'sk_39c19112e75518aa4353364ab512452e'
+
 
 # Create your views here.
 
