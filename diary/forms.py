@@ -20,3 +20,9 @@ class RemarkForm(forms.ModelForm):
         labels = {
             'remark': _('Add Remark'),
         }
+
+class CompanySearch(forms.ModelForm):
+    search_text = forms.CharField(max_length=100)
+    class Meta:
+        model = models.Company
+        fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')

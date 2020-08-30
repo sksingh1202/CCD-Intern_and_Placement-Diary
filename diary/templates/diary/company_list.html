@@ -2,7 +2,11 @@
 {% load static %}
 
 {% block content %}
-  {% for company in object_list %}
+  <form method="post">
+    {% csrf_token %}
+    {{form.search_text}}
+  </form>
+  {% for company in company_list %}
   {% if user.last_name == "PLACEMENT" or not company.placement or company.internship %}
     <div class="container list-body">
     {% if not company.internship %}
