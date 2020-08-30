@@ -2,9 +2,11 @@ import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, get_list_or_404
+from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import ModelFormMixin
 from django.views.generic.list import ListView
+from django.views.decorators.csrf import csrf_protect
 
 from . import forms
 from . import models
@@ -14,10 +16,27 @@ from . import models
 
 # Create your views here.
 
-class CompanyListView(LoginRequiredMixin, ListView):
+class CompanyListView(LoginRequiredMixin, ListView, ModelFormMixin):
     model = models.Company
-    fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')
+    form_class = forms.CompanySearch
+    # fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')
     template_name = 'diary/company_list.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        self.form = self.get_form(self.form_class)
+        search_text = ""
+        return ListView.get(self, request, *args, **kwargs)
+
+    @method_decorator(csrf_protect)
+    def post(self, request, *args, **kwargs):
+        self.form = self.get_form(self.form_class)
+        search_text = request.POST['search_text']
+        if len(search_text):
+            context['company_list'] = context['object_list'].filter(name__icontains=search_text)
+        else:
+            context['company_list'] = context['object_list']
+        return self.get(request, *args, **kwargs)
 
     def get_queryset(self):
         return models.Company.objects.filter(datetime__year=self.kwargs['year'])
@@ -26,6 +45,7 @@ class CompanyListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['yr'] = self.kwargs['year']
         context['yr_list'] = [*range(2015, datetime.date.today().year + 1)]
+        context['company_list'] = context['object_list']
         # context['logo'] = clearbit.NameToDomain.find(name='Clearbit')['logo']
         # print(context)
         # print(context['yr_list'])
@@ -52,9 +72,7 @@ class CompanyPlacementRemarksListView(LoginRequiredMixin, ListView, ModelFormMix
     def post(self, request, *args, **kwargs):
         self.object = None
         self.form = self.get_form(self.form_class)
-
         self.object = self.form.save(commit = False)
-
         self.object.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year=self.kwargs['year'])
         self.object.user = request.user
         self.object.placement = True
@@ -70,12 +88,12 @@ class CompanyPlacementRemarksListView(LoginRequiredMixin, ListView, ModelFormMix
         context = super().get_context_data(*args, **kwargs)
         context['company'] = self.company
         context['company_placement_hrs'] = models.HR.objects.select_related('company').filter(company=self.company, placement=True)
+        context['yr'] = self.kwargs['year']
+        context['yr_list'] = [*range(2015, datetime.date.today().year + 1)]
         if datetime.date.today().year == self.kwargs['year']:
             context['form'] = self.form
         else:
             context['form'] = None
-        context['yr'] = self.kwargs['year']
-        context['yr_list'] = [*range(2015, datetime.date.today().year + 1)]
         return context
 
 class CompanyInternRemarksListView(LoginRequiredMixin, ListView, ModelFormMixin):
