@@ -38,7 +38,7 @@ class Company(models.Model):
     datetime = models.DateTimeField(default=timezone.now)
     # you need to do editable = False and remove default during deployment
     year = models.IntegerField(blank=True, default=python_datetime.date.today().year)
-    response = models.JSONField(blank=True, editable=False)
+    response = models.JSONField(blank=True, editable=False, null=True)
 
     def __str__(self):
         return self.name + " (" + str(self.year) + ")"
