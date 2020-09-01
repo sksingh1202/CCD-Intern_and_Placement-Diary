@@ -1,4 +1,7 @@
-
+.search-box{
+    background-color: #5CDB95;
+    padding: 10px;
+}
 .company_clicked{
 
     cursor:pointer;

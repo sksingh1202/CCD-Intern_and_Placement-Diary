@@ -55,7 +55,7 @@
           </div>
         </div>
             {% if form %}
-            <div class="col-2 "><a class="fa fa-user text-light bg-primary" href="{% url 'create_hr' slug=company.slug  %}"></a></div>
+            <div class="col-2"><a class="fa fa-user text-light bg-primary mr-2" href="{% url 'create_hr' slug=company.slug %}"></a><a class="fa fa-list-ul text-light bg-primary" href="{% url 'hr_list' slug=company.slug %}"></a></div>
             {% endif %}
             <div class="col-6"> <!-- for POC list -->
               <ul class="list-inline float-right">

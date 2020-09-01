@@ -2,10 +2,25 @@
 {% load static %}
 
 {% block content %}
-  <form method="post">
-    {% csrf_token %}
-    {{form.search_text}}
-  </form>
+  <div class="m-5 container d-flex justify-content-center align-items-center">
+    <div class="search-box">
+    <form method="post">
+      {% csrf_token %}
+      <div class="search">
+        {{form.search_text}}
+       </div><i class="fa fa-search"></i>
+    </form>
+    </div>
+    {% if articles.count > 0 %}
+
+    {% for article in articles %}
+      <li><a href="/articles/get/{{ article.id }}/"></a></li>
+    {% endfor %}
+
+    <li>None to show!</li>
+    {% endif %}
+  </div>
+
   {% for company in company_list %}
   {% if user.last_name == "PLACEMENT" or not company.placement or company.internship %}
     <div class="container list-body">
@@ -44,4 +59,13 @@
   {% endif %}
   {% endfor %}
     </div>
+                <script src="{% static 'diary/js/jqueryui1.js' %}"></script>
+          <script src="{% static 'diary/js/jqueryui2.js' %}"></script>
+    <script>
+  $( function() {
+    $("#search").autocomplete({
+      source: ['js','python','php']
+    });
+  } );
+  </script>
 {% endblock content %}
