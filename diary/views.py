@@ -21,22 +21,13 @@ class CompanyListView(LoginRequiredMixin, ListView, ModelFormMixin):
     form_class = forms.CompanySearch
     # fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')
     template_name = 'diary/company_list.html'
+    context = None
 
     def get(self, request, *args, **kwargs):
         self.object = None
         self.form = self.get_form(self.form_class)
         search_text = ""
         return ListView.get(self, request, *args, **kwargs)
-
-    @method_decorator(csrf_protect)
-    def post(self, request, *args, **kwargs):
-        self.form = self.get_form(self.form_class)
-        search_text = request.POST['search_text']
-        if len(search_text):
-            context['company_list'] = context['object_list'].filter(name__icontains=search_text)
-        else:
-            context['company_list'] = context['object_list']
-        return self.get(request, *args, **kwargs)
 
     def get_queryset(self):
         return models.Company.objects.filter(datetime__year=self.kwargs['year'])
@@ -50,6 +41,16 @@ class CompanyListView(LoginRequiredMixin, ListView, ModelFormMixin):
         # print(context)
         # print(context['yr_list'])
         return context
+
+    @method_decorator(csrf_protect)
+    def post(self, request, *args, **kwargs):
+        self.form = self.get_form(self.form_class)
+        search_text = request.POST['search_text']
+        if len(search_text):
+            self.context['company_list'] = self.context['object_list'].filter(name__icontains=search_text)
+        else:
+            self.context['company_list'] = self.context['object_list']
+        return self.get(request, *args, **kwargs)
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = models.Company
