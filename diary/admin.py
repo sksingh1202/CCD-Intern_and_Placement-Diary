@@ -5,8 +5,8 @@ from . import models
 # Register your models here.
 
 class CompanyAdmin(admin.ModelAdmin):
-    search_fields = ['name_display']
-    list_filter = ['POC','placement','internship']
+    search_fields = ['name_display','year']
+    list_filter = ['POC','placement','internship','year']
     list_display = ['name_display','POC','additional_POC','placement','internship']
     list_editable = ['POC','additional_POC']
 

@@ -1,6 +1,11 @@
 .table-container{
-    margin:70px;
+    margin:auto;
 }
 .selected-row:hover{
     background-color:#CBE0FF;
+}
+.table {
+    width: 95%;
+    margin: auto;
+    color: #212529;
 }
