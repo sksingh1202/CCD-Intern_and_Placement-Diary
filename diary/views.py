@@ -1,33 +1,23 @@
 import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, get_list_or_404
-from django.utils.decorators import method_decorator
+from django.shortcuts import get_object_or_404, get_list_or_404, render
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import ModelFormMixin
 from django.views.generic.list import ListView
-from django.views.decorators.csrf import csrf_protect
 
 from . import forms
 from . import models
 
-#api related code
-
+# this is a global variable which represents the year version of the current company_list page:
+GLOBAL_YR = 0
 
 # Create your views here.
 
-class CompanyListView(LoginRequiredMixin, ListView, ModelFormMixin):
+class CompanyListView(LoginRequiredMixin, ListView):
     model = models.Company
-    form_class = forms.CompanySearch
-    # fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')
+    fields = ('name', 'POC', 'CPOC', 'additional_POC', 'email', 'placement', 'internship')
     template_name = 'diary/company_list.html'
-    context = None
-
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        self.form = self.get_form(self.form_class)
-        search_text = ""
-        return ListView.get(self, request, *args, **kwargs)
 
     def get_queryset(self):
         return models.Company.objects.filter(datetime__year=self.kwargs['year'])
@@ -35,22 +25,19 @@ class CompanyListView(LoginRequiredMixin, ListView, ModelFormMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['yr'] = self.kwargs['year']
+        global GLOBAL_YR
+        GLOBAL_YR = self.kwargs['year']
         context['yr_list'] = [*range(2015, datetime.date.today().year + 1)]
-        context['company_list'] = context['object_list']
-        # context['logo'] = clearbit.NameToDomain.find(name='Clearbit')['logo']
-        # print(context)
-        # print(context['yr_list'])
         return context
 
-    @method_decorator(csrf_protect)
-    def post(self, request, *args, **kwargs):
-        self.form = self.get_form(self.form_class)
-        search_text = request.POST['search_text']
-        if len(search_text):
-            self.context['company_list'] = self.context['object_list'].filter(name__icontains=search_text)
-        else:
-            self.context['company_list'] = self.context['object_list']
-        return self.get(request, *args, **kwargs)
+def company_update(request, *args, **kwargs):
+    global GLOBAL_YR
+    if request.method == "POST" and len(str(request.POST.get('search_text'))):
+        context = {'company_list':models.Company.objects.filter(datetime__year=GLOBAL_YR, name__icontains=request.POST.get("search_text"))}
+    else:
+        context = {'company_list':models.Company.objects.filter(datetime__year=GLOBAL_YR)}
+    context['yr'] = GLOBAL_YR
+    return render(request, "diary/_filtered_companies.html", context)
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = models.Company

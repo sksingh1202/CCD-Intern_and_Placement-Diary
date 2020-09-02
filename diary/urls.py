@@ -18,6 +18,10 @@ urlpatterns = [
         views.CompanyListView.as_view(),
         name='company_list'
     ),
+    path('companies/filter/',
+        views.company_update,
+        name = 'company_update'
+    ),
     path('companies/new/',
         views.CompanyCreateView.as_view(),
         name='company_create'

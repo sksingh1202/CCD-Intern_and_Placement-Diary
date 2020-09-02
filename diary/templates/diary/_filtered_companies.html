@@ -1,0 +1,37 @@
+{% for company in company_list %}
+{% if user.last_name == "PLACEMENT" or not company.placement or company.internship %}
+  <div class="container list-body">
+  {% if not company.internship %}
+    <div class="company_clicked" onclick="window.location.href = '{% url 'company_placement_remarks_list' slug=company.slug year=yr %} ';">
+  {% else %}
+    <div class="company_clicked" onclick="window.location.href = '{% url 'company_intern_remarks' slug=company.slug year=yr %} ';">
+  {% endif %}
+      <div class="company card mb-3 p-2">
+        <div class="row no-gutters">
+          <div class="col-md-2 d-flex align-items-center">
+            <img src="http://logo.clearbit.com/{{company.response.domain}}?size=500" class=" card-img" alt="Unable to fetch Image!" >
+          </div>
+          <div class="col-md-10">
+            <div class="card-body row d-flex align-items-center">
+              <div class="col-md-8">
+                <h4 class="card-title ">{{company.name}}</h4>
+                <div class="card-text d-flex justify-content-start ">
+                  <span class="badge badge-info badge-pill POC">{{company.POC}}</span>
+                  {% for CPOC in company.CPOC.all %}
+                    <span class="badge badge-info badge-pill POC">{{CPOC}}</span>
+                  {% endfor %}
+                  <span class="badge badge-info badge-pill POC">{% if company.additional_POC %}{{company.additional_POC}}{% endif %}</span>
+                </div>
+              </div>
+              <div class="col-4 ">
+                <span class="badge badge-primary badge-pill">{% if company.placement and user.last_name == "PLACEMENT" %}<a class="tags" href = "{% url 'company_placement_remarks_list' slug=company.slug year=yr %} ">Placement</a>{% endif %}</span>
+                <span class="badge badge-primary badge-pill">{% if company.internship %}<a class="tags" href="{% url 'company_intern_remarks' slug=company.slug year=yr %} ">Internship</a>{% endif %}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space"> </div>
+{% endif %}
+{% endfor %}
