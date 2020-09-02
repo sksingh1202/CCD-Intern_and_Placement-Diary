@@ -9,15 +9,31 @@
       <input type="text" id="search">
     </form>
     </div>
-    {% if articles.count > 0 %}
 
-    {% for article in articles %}
-      <li><a href="/articles/get/{{ article.id }}/"></a></li>
-    {% endfor %}
+  <!-- Company-List -->
+<div class="space"></div>
+<div class="space"></div>
+<div class="space"></div>
 
-    <li>None to show!</li>
-    {% endif %}
-    <div class="filtered_companies">
-      {% include "diary/_filtered_companies.html" %}
-    </div>
+<div class="container-fluid">
+  <table class="table sticky">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Company Name</th>
+        <th scope="col">Tags</th>
+        <th scope="col">POC</th>
+        <th scope="col">Additional POC</th>
+        <th scope="col">CPOC</th>
+        <th scope="col">Internship</th>
+        <th scope="col">Placement</th>
+      </tr>
+    </thead>
+    <tbody>
+      <div class="filtered_companies">
+        {% include "diary/_filtered_companies.html" %}
+      </div>
+    </tbody>
+  </table>
+</div>
 {% endblock content %}

@@ -39,6 +39,7 @@ def company_update(request, *args, **kwargs):
     context['yr'] = GLOBAL_YR
     return render(request, "diary/_filtered_companies.html", context)
 
+
 class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = models.Company
     form_class = forms.CompanyForm
@@ -172,3 +173,6 @@ class HRPresentListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         self.year = datetime.date.today().year
         return models.HR.objects.filter(company__year=self.year)
+
+def error_404_view(requests, exception):
+    return render(requests, 'diary/404.html')

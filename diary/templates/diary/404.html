@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>404 | Not Found</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'diary/css/err404.css' %}">
+</head>
+<body class="body-404">
+	<h1 class="oops">Oops!</h1>
+	<h1 class="err404">404 - page not found</h3>
+	<h2 class="err-text">The Page you requested was not found!</h2>
+	<a href="{% url 'company_list' %}" class="btn btn-primary hompage-link">Go to homepage</a>
+</body>
+</html>
