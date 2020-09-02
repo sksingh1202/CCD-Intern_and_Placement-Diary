@@ -1,0 +1,36 @@
+.body-404{
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+.oops{
+	font-weight: 900;
+	font-size:10rem;
+	color: transparent;
+	-webkit-background-clip:text;
+	background-image: url("{% static 'images/galaxy.jpg' %}");
+	background-size: 100% 100%;
+	    margin: 90px auto 30px;
+	letter-spacing: 5px;
+}
+.err404{
+	text-transform: uppercase;
+	text-align: center;
+	margin: 0 auto;
+}
+.err-text{
+	font-weight: 100;
+	opacity: 0.85;
+	margin-top: 20px;
+}
+.hompage-link{
+	    border-radius: 100px;
+    text-transform: uppercase;
+    padding-left: 20px;
+    padding-right: 20px;
+}

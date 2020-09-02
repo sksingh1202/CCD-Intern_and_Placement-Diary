@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.edit import ModelFormMixin
 from django.views.generic.list import ListView
 from django.views.decorators.csrf import csrf_protect
+from django.shortcuts import render
 
 from . import forms
 from . import models
@@ -51,6 +52,7 @@ class CompanyListView(LoginRequiredMixin, ListView, ModelFormMixin):
         else:
             self.context['company_list'] = self.context['object_list']
         return self.get(request, *args, **kwargs)
+
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = models.Company
@@ -185,3 +187,7 @@ class HRPresentListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         self.year = datetime.date.today().year
         return models.HR.objects.filter(company__year=self.year)
+
+
+def error_404_view(requests, exception):
+    return render(requests, 'diary/404.html')
