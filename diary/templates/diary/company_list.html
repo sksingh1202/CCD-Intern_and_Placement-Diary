@@ -2,6 +2,13 @@
 {% load static %}
 
 {% block content %}
+  <div class="m-5 container d-flex justify-content-center align-items-center">
+    <div class="search-box">
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" id="search">
+    </form>
+    </div>
 
   <!-- Company-List -->
 <div class="space"></div>
@@ -23,104 +30,10 @@
       </tr>
     </thead>
     <tbody>
-      {% for company in company_list %}
-       {% if user.last_name == "PLACEMENT" or not company.placement or company.internship %}
-      {% if not company.internship %}<tr class="company_clicked" onclick="window.location.href = '{% url 'company_placement_remarks_list' slug=company.slug year=yr %} ';">
-      {% else %}<tr class="company_clicked" onclick="window.location.href = '{% url 'company_intern_remarks' slug=company.slug year=yr %} ';">
-      {% endif %}
-        <td class="company_image" >
-          <img src="http://logo.clearbit.com/{{company.response.domain}}?size=500" class=" card-img" alt="Unable to fetch Image!" >
-        </td>
-        <td class="company_name">
-          {{ company.name }}
-        </td>
-        <td>
-          <!-- company Tags -->
-        </td>
-        <td>
-          {{ company.POC }}
-        </td>
-        <td>
-          {% if company.additional_POC %}{{company.additional_POC}}{% endif %}
-        </td>
-        <td>
-          <!-- LIST-CPOC -->
-          <ul class="CPOC">
-            {% for CPOC in company.CPOC.all %}
-            <li class="li-items">
-              <svg width="1em" height="1em" viewBox="0 0 16 16" class="CPOC-list-bulletin bi bi-chevron-double-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-              <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg> {{CPOC}}
-            </li>
-            {% endfor %}
-          </ul>
-          <!-- DROPDOWN-CPOC -->
-  <!--          <div class="dropdown">-->
-  <!--            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-  <!--            </button>-->
-  <!--            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">-->
-  <!--              {% for CPOC in company.CPOC.all %}-->
-  <!--              <button class="dropdown-item" type="button">{{CPOC}}</button>-->
-  <!--              {% endfor %}-->
-  <!--            </div>-->
-  <!--            </div>-->
-        </td>
-        <td>
-            {% if company.internship %}<a class="tags" href="{% url 'company_intern_remarks' slug=company.slug year=yr %} "><svg width="1em" height="1em" viewBox="0 0 16 16" class=" bi bi-check2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-            </svg></a>{% endif %}
-        </td>
-        <td>
-            {% if company.placement and user.last_name == "PLACEMENT" %}<a class="tags" href = "{% url 'company_placement_remarks_list' slug=company.slug year=yr %} "><svg width="1em" height="1em" viewBox="0 0 16 16" class=" bi bi-check2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-            </svg></a>{% endif %}
-        </td>
-        </tr>
-     {% endif %}
-  {% endfor %}
+      <div class="filtered_companies">
+        {% include "diary/_filtered_companies.html" %}
+      </div>
     </tbody>
   </table>
 </div>
-
-
-
-<!--    <div class="container list-body">-->
-<!--   {% for company in company_list %}-->
-<!--      {% if user.last_name == "PLACEMENT" or not company.placement or company.internship %}-->
-<!--    {% if not company.internship %}-->
-<!--      <div class="company_clicked" onclick="window.location.href = '{% url 'company_placement_remarks_list' slug=company.slug year=yr %} ';">-->
-<!--    {% else %}-->
-<!--      <div class="company_clicked" onclick="window.location.href = '{% url 'company_intern_remarks' slug=company.slug year=yr %} ';">-->
-<!--    {% endif %}-->
-<!--        <div class="company card mb-3 p-2">-->
-<!--          <div class="row no-gutters">-->
-<!--            <div class="col-md-2 d-flex align-items-center">-->
-<!--              <img src="http://logo.clearbit.com/{{company.response.domain}}?size=500" class=" card-img" alt="Unable to fetch Image!" >-->
-<!--            </div>-->
-<!--            <div class="col-md-10">-->
-<!--              <div class="card-body row d-flex align-items-center">-->
-<!--                <div class="col-md-8">-->
-<!--                  <h4 class="card-title ">{{company.name}}</h4>-->
-<!--                  <div class="card-text d-flex justify-content-start ">-->
-<!--                    <span class="badge badge-info badge-pill POC">{{company.POC}}</span>-->
-<!--                    {% for CPOC in company.CPOC.all %}-->
-<!--                      <span class="badge badge-info badge-pill POC">{{CPOC}}</span>-->
-<!--                    {% endfor %}-->
-<!--                    <span class="badge badge-info badge-pill POC">{% if company.additional_POC %}{{company.additional_POC}}{% endif %}</span>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="col-4 ">-->
-<!--                  <span class="badge badge-primary badge-pill">{% if company.placement and user.last_name == "PLACEMENT" %}<a class="tags" href = "{% url 'company_placement_remarks_list' slug=company.slug year=yr %} ">Placement</a>{% endif %}</span>-->
-<!--                  <span class="badge badge-primary badge-pill">{% if company.internship %}<a class="tags" href="{% url 'company_intern_remarks' slug=company.slug year=yr %} ">Internship</a>{% endif %}</span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="space"> </div>-->
-<!--  {% endif %}-->
-<!--  {% endfor %}-->
-<!--    </div>-->
 {% endblock content %}

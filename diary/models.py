@@ -30,7 +30,6 @@ class Company(models.Model):
     CPOC = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='company_cpoc')
     additional_POC = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True)
-    # logo = models.ImageField(blank=True)
     placement = models.BooleanField(default=False)
     internship = models.BooleanField(default=False)
     slug = models.SlugField(editable=False, allow_unicode=True, blank=True)
@@ -63,7 +62,7 @@ class Remark(models.Model):
     company = models.ForeignKey(Company, on_delete=models.PROTECT, related_name='remarks', blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='remarks', blank=True)
     remark = models.TextField()
-    # do autho_now_add=True and remove default during deployment
+    # do auto_now_add=True and remove default during deployment
     datetime = models.DateTimeField(default=timezone.now)
     placement = models.BooleanField(default=False, blank = True)
 
