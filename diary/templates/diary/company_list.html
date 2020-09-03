@@ -2,7 +2,10 @@
 {% load static %}
 
 {% block content %}
+
+  <script src="{% static 'diary/js/ajax.js' %}" ></script>
   <div class="mt-5 container d-flex justify-content-center flex-column align-items-center">
+
     <div class="search-box">
     <form method="post">
       {% csrf_token %}
@@ -11,9 +14,6 @@
     </div>
 
   <!-- Company-List -->
-<div class="space"></div>
-<div class="space"></div>
-<div class="space"></div>
 
 <div class="container">
   <table class="table sticky">
@@ -35,5 +35,7 @@
       </div>
     </tbody>
   </table>
+<div id="filtered_companies">
+  {% include "diary/_filtered_companies.html" %}
 </div>
 {% endblock content %}
