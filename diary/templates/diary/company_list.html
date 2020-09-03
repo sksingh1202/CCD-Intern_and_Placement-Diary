@@ -2,18 +2,19 @@
 {% load static %}
 
 {% block content %}
+
   <script src="{% static 'diary/js/ajax.js' %}" ></script>
-  <div class="m-5 container d-flex justify-content-center align-items-center">
+  <div class="mt-5 d-flex justify-content-center flex-column align-items-center">
+
     <div class="search-box">
-    <form method="post">
+    <form class="company-search" method="post">
       {% csrf_token %}
-      <input type="text" id="search">
+      <input type="text" id="search" placeholder="Search Company"><i class="fa fa-search" aria-hidden="true"></i>
     </form>
     </div>
 
   <!-- Company-List -->
-
-<div id="filtered_companies">
+<div class="" id="filtered_companies">
   {% include "diary/_filtered_companies.html" %}
 </div>
 {% endblock content %}
