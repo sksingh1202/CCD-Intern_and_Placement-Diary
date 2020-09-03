@@ -83,5 +83,22 @@ img.card-img
     width: 150px;
 }
 #search{
-    width:100%;
+    border-radius: 50px;
+    width: 360px;
+    font-size:1.5rem;
+     transition: width 0.3s;
+}
+#search:focus{
+    outline: none;
+    width:400px;
+}
+.company-search {
+    display:flex;
+    flex-direction:row;
+}
+.search-box{
+        border-radius: 50px;
+}
+#filtered_companies{
+    width: 85%;
 }

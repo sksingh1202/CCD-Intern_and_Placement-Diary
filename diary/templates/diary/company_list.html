@@ -4,38 +4,17 @@
 {% block content %}
 
   <script src="{% static 'diary/js/ajax.js' %}" ></script>
-  <div class="mt-5 container d-flex justify-content-center flex-column align-items-center">
+  <div class="mt-5 d-flex justify-content-center flex-column align-items-center">
 
     <div class="search-box">
-    <form method="post">
+    <form class="company-search" method="post">
       {% csrf_token %}
-      <input type="text" id="search">
+      <input type="text" id="search" placeholder="Search Company"><i class="fa fa-search" aria-hidden="true"></i>
     </form>
     </div>
 
   <!-- Company-List -->
-
-<div class="container">
-  <table class="table sticky">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col"></th>
-        <th scope="col">Company Name</th>
-        <th scope="col">Tags</th>
-        <th scope="col">POC</th>
-        <th scope="col">Additional POC</th>
-        <th scope="col">CPOC</th>
-        <th scope="col">Internship</th>
-        <th scope="col">Placement</th>
-      </tr>
-    </thead>
-    <tbody>
-      <div class="filtered_companies">
-        {% include "diary/_filtered_companies.html" %}
-      </div>
-    </tbody>
-  </table>
-<div id="filtered_companies">
+<div class="" id="filtered_companies">
   {% include "diary/_filtered_companies.html" %}
 </div>
 {% endblock content %}
