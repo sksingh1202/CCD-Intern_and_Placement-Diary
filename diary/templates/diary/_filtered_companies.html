@@ -1,59 +1,85 @@
-{% for company in company_list %}
- {% if user.last_name == "PLACEMENT" or not company.placement or company.internship %}
-{% if not company.internship %}<tr class="company_clicked" onclick="window.location.href = '{% url 'company_placement_remarks_list' slug=company.slug year=yr %} ';">
-{% else %}<tr class="company_clicked" onclick="window.location.href = '{% url 'company_intern_remarks' slug=company.slug year=yr %} ';">
-{% endif %}
-  <td class="company_image" >
-    <img src="http://logo.clearbit.com/{{company.response.domain}}?size=500" class=" card-img" alt="Unable to fetch Image!" >
-  </td>
-  <td class="company_name">
-    {{ company.name }}
-  </td>
-  <td>
-    <!-- company Tags -->
-  </td>
-  <td>
-    {{ company.POC }}
-  </td>
-  <td>
-    {% if company.additional_POC %}{{company.additional_POC}}{% endif %}
-  </td>
-  <td>
-    <!-- LIST-CPOC -->
-    <ul class="CPOC">
-      {% for CPOC in company.CPOC.all %}
-      <li class="li-items">
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="CPOC-list-bulletin bi bi-chevron-double-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-        <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-        </svg> {{CPOC}}
-      </li>
+<div class="space"></div>
+<div class="space"></div>
+<div class="space"></div>
+
+<div class="container-fluid">
+  <table class="table sticky">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Company Name</th>
+        <th scope="col">Tags</th>
+        <th scope="col">POC</th>
+        <th scope="col">Additional POC</th>
+        <th scope="col">CPOC</th>
+        <th scope="col">Internship</th>
+        <th scope="col">Placement</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for company in company_list %}
+       {% if user.last_name == "PLACEMENT" or not company.placement or company.internship %}
+      {% if not company.internship %}<tr class="company_clicked" onclick="window.location.href = '{% url 'company_placement_remarks_list' slug=company.slug year=yr %} ';">
+      {% else %}<tr class="company_clicked" onclick="window.location.href = '{% url 'company_intern_remarks' slug=company.slug year=yr %} ';">
+      {% endif %}
+        <td class="company_image" >
+          <img src="http://logo.clearbit.com/{{company.response.domain}}?size=500" class=" card-img" alt="Unable to fetch Image!" >
+        </td>
+        <td class="company_name">
+          {{ company.name }}
+        </td>
+        <td>
+          <!-- company Tags -->
+        </td>
+        <td>
+          {{ company.POC }}
+        </td>
+        <td>
+          {% if company.additional_POC %}{{company.additional_POC}}{% endif %}
+        </td>
+        <td>
+          <!-- LIST-CPOC -->
+          <ul class="CPOC">
+            {% for CPOC in company.CPOC.all %}
+            <li class="li-items">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="CPOC-list-bulletin bi bi-chevron-double-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+              <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+              </svg>{{CPOC}}
+            </li>
+            {% endfor %}
+          </ul>
+          <!-- DROPDOWN-CPOC -->
+      <!--          <div class="dropdown">-->
+      <!--            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+      <!--            </button>-->
+      <!--            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">-->
+      <!--              {% for CPOC in company.CPOC.all %}-->
+      <!--              <button class="dropdown-item" type="button">{{CPOC}}</button>-->
+      <!--              {% endfor %}-->
+      <!--            </div>-->
+      <!--            </div>-->
+        </td>
+        <td>
+            {% if company.internship %}
+            <a class="tags" href="{% url 'company_intern_remarks' slug=company.slug year=yr %} "><svg width="1em" height="1em" viewBox="0 0 16 16" class=" bi bi-check2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+            </svg></a>
+            {% endif %}
+        </td>
+        <td>
+            {% if company.placement and user.last_name == "PLACEMENT" %}
+            <a class="tags" href = "{% url 'company_placement_remarks_list' slug=company.slug year=yr %} "><svg width="1em" height="1em" viewBox="0 0 16 16" class=" bi bi-check2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+            </svg></a>
+            {% endif %}
+        </td>
+        </tr>
+      {% endif %}
       {% endfor %}
-    </ul>
-    <!-- DROPDOWN-CPOC -->
-<!--          <div class="dropdown">-->
-<!--            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--            </button>-->
-<!--            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">-->
-<!--              {% for CPOC in company.CPOC.all %}-->
-<!--              <button class="dropdown-item" type="button">{{CPOC}}</button>-->
-<!--              {% endfor %}-->
-<!--            </div>-->
-<!--            </div>-->
-  </td>
-  <td>
-      {% if company.internship %}<a class="tags" href="{% url 'company_intern_remarks' slug=company.slug year=yr %} "><svg width="1em" height="1em" viewBox="0 0 16 16" class=" bi bi-check2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-      </svg></a>{% endif %}
-  </td>
-  <td>
-      {% if company.placement and user.last_name == "PLACEMENT" %}<a class="tags" href = "{% url 'company_placement_remarks_list' slug=company.slug year=yr %} "><svg width="1em" height="1em" viewBox="0 0 16 16" class=" bi bi-check2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-      </svg></a>{% endif %}
-  </td>
-  </tr>
-{% endif %}
-{% endfor %}
+</tbody>
+</table>
+</div>
 
 <!--    <div class="container list-body">-->
 <!--   {% for company in company_list %}-->

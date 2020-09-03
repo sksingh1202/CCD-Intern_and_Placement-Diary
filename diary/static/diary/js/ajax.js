@@ -18,7 +18,7 @@ $(function(){
 
   $('#search').keyup(function(event){
     event.preventDefault()
-    $('.filtered_companies').html('').load(
+    $('#filtered_companies').html('').load(
       "/companies/filter/",
       {
         'search_text': $('#search').val(),
