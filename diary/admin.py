@@ -5,13 +5,13 @@ from . import models
 # Register your models here.
 
 class CompanyAdmin(admin.ModelAdmin):
-    search_fields = ['name']
+    search_fields = ['name_display','year']
+    list_filter = ['POC','placement','internship','year']
+    list_display = ['name_display','POC','additional_POC','placement','internship']
+    list_editable = ['POC','additional_POC']
 
-    list_filter = ['POC','placement','internship']
-
-    list_display = ['name','POC','additional_POC','CPOC','placement','internship']
-
-    list_editable = ['POC','additional_POC','CPOC']
+    def name_display(self, obj):
+        return obj.name + " (" + str(obj.year) + ")"
 
 class   HRAdmin(admin.ModelAdmin):
     search_fields = ['company']

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,16 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG') == 'True')
+# DEBUG = False
 
+# ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['ccd-diary.herokuapp.com']
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -127,7 +126,8 @@ STATIC_URL = '/static/'
 # custom additional variables:
 AUTH_USER_MODEL = 'diary.User'
 
-LOGIN_REDIRECT_URL = 'company_list'
+present_year = datetime.date.today().year
+LOGIN_REDIRECT_URL = 'companies/' + str(present_year) + '/'
 LOGOUT_REDIRECT_URL = 'login'
 
 STATICFILES_DIRS = [

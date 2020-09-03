@@ -1,3 +1,7 @@
+.search-box{
+    background-color: #5CDB95;
+    padding: 10px;
+}
 .company_clicked{
 
     cursor:pointer;
@@ -5,6 +9,7 @@
 .list-body{
     margin-top: 50px;
     margin-bottom: 25px;
+    width:100%;
 }
 a.tags{
     font-size: 16px;
@@ -36,4 +41,64 @@ img{
 .POC{
     font-size: 16px;
     padding: 4px;
+}
+
+/****TABLE***/
+.table.sticky th{
+    position: sticky;
+    top:0;
+}
+.bi-check2{
+    color:#007bff;
+    font-size:50px;
+}
+thead{
+    z-index:100;
+}
+th.company_image{
+z-index: -1;
+height100px;
+width:150px;
+}
+th.company_name{
+z-index: -1;
+}
+th{
+z-index: auto;
+}
+td div.dropdown {
+
+    z-index: -10;
+
+}
+ul.CPOC{
+    list-style:none;
+    padding: 0;
+}
+.CPOC-list-bulletin{
+    color:#007bff;
+}
+img.card-img
+{
+    width: 150px;
+}
+#search{
+    border-radius: 50px;
+    width: 360px;
+    font-size:1.5rem;
+     transition: width 0.3s;
+}
+#search:focus{
+    outline: none;
+    width:400px;
+}
+.company-search {
+    display:flex;
+    flex-direction:row;
+}
+.search-box{
+        border-radius: 50px;
+}
+#filtered_companies{
+    width: 85%;
 }

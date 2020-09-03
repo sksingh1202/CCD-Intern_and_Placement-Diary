@@ -1,0 +1,36 @@
+{% extends "diary/base.html" %}
+{% block dropdown-block %}
+{% endblock %}
+  {% block content %}
+  <h1 class="text-center m-4">List of HR's of {{company_name}}</h1>
+  <div class="table-container">
+  <table class="table" >
+    <thead class="thead-dark">
+    <th scope="col">Name</th>
+    <th scope="col">Year</th>
+    <th scope="col">Preferred Contact</th>
+    <th scope="col">Alternate Contact</th>
+    <th scope="col">Email</th>
+    <th scope="col">Linked-In</th>
+    <th scope="col">Facebook</th>
+    <th scope="col">Assigned Placement</th>
+    <th scope="col">Assigned Intern</th>
+    </thead>
+    <tbody>
+      {% for hr in hr_list %}
+        <tr scope="row" class="selected-row">
+          <td>{{hr.name}}</td>
+          <td>{{hr.company.year}}</td>
+          <td>{{hr.contact_number_1}}</td>
+          <td>{{hr.contact_number_2}}</td>
+          <td>{{hr.email}}</td>
+          <td>{{hr.linkedin_id}}</td>
+          <td>{{hr.facebook_id}}</td>
+          {% if hr.placement %} <td>Yes</td> {% else %} <td>No</td> {% endif %}
+          {% if hr.internship %} <td>Yes</td> {% else %} <td>No</td> {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+{% endblock content %}

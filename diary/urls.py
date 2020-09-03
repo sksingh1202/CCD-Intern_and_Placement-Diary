@@ -14,23 +14,27 @@ urlpatterns = [
         auth_views.LogoutView.as_view(),
         name='logout'
     ),
-    path('companies/',
+    path('companies/<int:year>/',
         views.CompanyListView.as_view(),
         name='company_list'
+    ),
+    path('companies/filter/',
+        views.company_update,
+        name = 'company_update'
     ),
     path('companies/new/',
         views.CompanyCreateView.as_view(),
         name='company_create'
     ),
-    path('companies/placement/<slug>/',
+    path('companies/placement/<slug>/<int:year>/',
         views.CompanyPlacementRemarksListView.as_view(),
         name='company_placement_remarks_list'
     ),
-    path('companies/intern/<slug>/',
+    path('companies/intern/<slug>/<int:year>/',
         views.CompanyInternRemarksListView.as_view(),
         name='company_intern_remarks'
     ),
-    path('companies/<slug>/add_hr',
+    path('companies/<slug>/add_hr/',
         views.HRCreateView.as_view(),
         name='create_hr'
     ),
@@ -38,6 +42,14 @@ urlpatterns = [
     #     views.HRNavCreateView.as_view(),
     #     name='create_nav_hr'
     # ),
+    path('companies/<slug>/hrs/',
+        views.HRListView.as_view(),
+        name='hr_list'
+    ),
+    path('companies/hrs/',
+        views.HRPresentListView.as_view(),
+        name='hr_present_list'
+    ),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
