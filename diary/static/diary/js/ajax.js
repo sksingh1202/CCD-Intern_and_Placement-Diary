@@ -26,4 +26,57 @@ $(function(){
       }
     );
   });
+
+  intern_val = "False"
+  place_val = "False"
+  all_val = "True"
+
+  $('#all').click(function(){
+    if(all_val == "False"){
+      all_val = "True"
+      intern_val = "False"
+      place_val = "False"
+      $('#intern').prop("checked", false)
+      $('#place').prop("checked", false)
+      $('#filtered_companies').html('').load(
+        "/companies/ipfilter/",
+        {
+          'intern_val': intern_val,
+          'place_val': place_val,
+          'all_val': all_val,
+          'csrfmiddlewaretoken': csrftoken
+        }
+      );
+    }
+  });
+
+  $('#intern').click(function(){
+    if(intern_val == "True") intern_val = "False"
+    else intern_val = "True"
+    all_val = "False"
+    $('#filtered_companies').html('').load(
+      "/companies/ipfilter/",
+      {
+        'intern_val': intern_val,
+        'place_val': place_val,
+        'all_val': "False",
+        "csrfmiddlewaretoken": csrftoken
+      }
+    );
+  });
+
+  $('#place').click(function(){
+    if(place_val == "True") place_val = "False"
+    else place_val = "True"
+    all_val = "False"
+    $('#filtered_companies').html('').load(
+      "/companies/ipfilter/",
+      {
+        'intern_val': intern_val,
+        'place_val': place_val,
+        'all_val': "False",
+        "csrfmiddlewaretoken": csrftoken
+      }
+    );
+  });
 });
