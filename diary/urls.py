@@ -20,7 +20,11 @@ urlpatterns = [
     ),
     path('companies/filter/',
         views.company_update,
-        name = 'company_update'
+        name='company_update'
+    ),
+    path('companies/ipfilter/',
+        views.company_intern_placement_filter,
+        name='company_ipfilter'
     ),
     path('companies/new/',
         views.CompanyCreateView.as_view(),
