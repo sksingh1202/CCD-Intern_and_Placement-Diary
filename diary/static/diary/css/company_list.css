@@ -37,6 +37,7 @@ img{
     height : 100px;
     margin-left:10px;
     margin-right:10px;
+    object-fit: contain;
 }
 .POC{
     font-size: 16px;
@@ -77,10 +78,7 @@ ul.CPOC{
 }
 .CPOC-list-bulletin{
     color:#007bff;
-}
-img.card-img
-{
-    width: 150px;
+    float:left;
 }
 #search{
     border-radius: 50px;
@@ -102,5 +100,50 @@ img.card-img
         border-radius: 50px;
 }
 #filtered_companies{
-    width: 85%;
+    width: 98%;
+    margin:auto;
+}
+
+
+@media (max-width : 479px) {
+    body.font-dec{
+        font-size: 0.5rem;
+    }
+    .desktop-view{
+        display:none;
+    }
+    .mobile-view{
+        font-size:0.7rem;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+    button.navbar-toggler{
+        border: none;
+    }
+    .nav-link-hr:hover{
+        background-color:#17a2b8;
+    }
+    .nav-link-company:hover{
+        background-color:#28a745;
+    }
+    .nav-link-logout:hover{
+        background-color:#dc3545;
+    }
+    .bi-check2{
+        color: #007bff;
+    font-size: 0.5rem;
+    }
+    #filtered_companies{
+    width: 100%;
+    margin:auto;
+    }
+}
+@media (min-width : 480px) {
+    .desktop-view{
+        display:block;
+    }
+    .mobile-view{
+    display:none;
+}
 }

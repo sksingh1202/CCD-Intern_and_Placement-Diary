@@ -8,8 +8,7 @@
     <thead class="thead-dark">
       <th scope="col">Name</th>
       <th scope="col">Company</th>
-      <th scope="col">Preferred Contact</th>
-      <th scope="col">Alternate Contact</th>
+      <th scope="col">Phone Contact</th>
       <th scope="col">Email</th>
       <th scope="col">Linked-In</th>
       <th scope="col">Facebook</th>
@@ -21,11 +20,10 @@
         <tr scope="row" class="selected-row">
           <td>{{hr.name}}</td>
           <td>{{hr.company.name}}</td>
-          <td>{{hr.contact_number_1}}</td>
-          <td>{{hr.contact_number_2}}</td>
-          <td>{{hr.email}}</td>
-          <td><a href="{{ HR.linkedin_id }}" target="_blank" class="fa fa-linkedin m-1"></td>
-          <td><a href="{{ HR.facebook_id }}" target="_blank" class="fa fa-facebook m-1"></a></td>
+          <td><a class="fa fa-item fa-phone bg-warning text-white m-1" href="tel:{{HR.contact_number_1}}"></a><a class="fa fa-item fa-phone bg-warning text-white m-1" href="tel:{{HR.contact_number_2}}"></a></td>
+          <td><a class="fa fa-item fa-paper-plane bg-primary text-white m-1" href="mailto:{{HR.email}}"></a></td>
+          <td><a href="{{ HR.linkedin_id }}" target="_blank" class="fa fa-item fa-linkedin text-white m-1"></td>
+          <td><a href="{{ HR.facebook_id }}" target="_blank" class="fa fa-item fa-facebook text-white m-1"></a></td>
           {% if hr.placement %} <td>Yes</td> {% else %} <td>No</td> {% endif %}
           {% if hr.internship %} <td>Yes</td> {% else %} <td>No</td> {% endif %}
         </tr>
