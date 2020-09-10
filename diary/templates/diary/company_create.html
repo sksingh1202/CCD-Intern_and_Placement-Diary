@@ -18,14 +18,17 @@
           <label>Company Name:</label>
           {{form.name}}
         </div>
+        {% if form.name.errors %}{% for error in form.name.errors %}{{error}}{% endfor %}{% endif %}
         <div class="m-2">
           <label>POC:</label>
           {{form.POC}}
         </div>
+        {% if form.POC.errors %}{% for error in form.POC.errors %}{{error}}{% endfor %}{% endif %}
         <div class="m-2">
           <label>CPOC:</label>
           {{form.CPOC}}
         </div>
+        {% if form.CPOC.errors %}{% for error in form.CPOC.errors %}{{error}}{% endfor %}{% endif %}
         <div class="m-2">
           <label>Additional POC:</label>
           {{form.additional_POC}}
@@ -34,6 +37,7 @@
           <label>Email Address:</label>
           {{form.email}}
         </div>
+        {% if form.email.errors %}{% for error in form.email.errors %}{{error}}{% endfor %}{% endif %}
         <div class="m-2">
           {% if user.last_name == "PLACEMENT" %}
           <label>Placement:</label>
@@ -44,8 +48,9 @@
           <label>Intern:</label>
           {{form.internship}}
         </div>
+        {% if form.non_field_errors %}{% for error in form.non_field_errors %}{{error}}{% endfor %}{% endif %}
         <div class="m-2">
-          <input class="btn btn-success px-5" type="submit" value="Add" id="submit">
+          <input class="btn btn-success px-5" type="submit" formnovalidate value="Add" id="submit">
         </div>
       </div>
     </div>
