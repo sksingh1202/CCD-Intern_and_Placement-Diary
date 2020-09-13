@@ -19,19 +19,25 @@
       <label>HR's name:</label>
       {{form.name}}
     </div>
+    {% if form.name.errors %}{% for error in form.name.errors %}{{error}}{% endfor %}{% endif %}
+    <p>You may specify the phonenumber in international format using the international country calling code.</p>
+    <p>Note that the default country code is 91 unless specified with the phonenumber explicitly.</p>
     <div>
       <label>Preffered Contact Number:</label>
       {# preffered contact number #}
       {{form.contact_number_1}}
     </div>
+    {% if form.contact_number_1.errors %}{% for error in form.contact_number_1.errors %}{{error}}{% endfor %}{% endif %}
     <div>
       <label>Another Contact Number:</label>
       {{form.contact_number_2}}
     </div>
+    {% if form.contact_number_2.errors %}{% for error in form.contact_number_1.errors %}{{error}}{% endfor %}{% endif %}
     <div>
       <label>Email Address:</label>
       {{form.email}}
     </div>
+    {% if form.email.errors %}{% for error in form.email.errors %}{{error}}{% endfor %}{% endif %}
     <div>
       <label>Linkedin :</label>
       {{form.linkedin_id}}
@@ -52,7 +58,7 @@
       {{form.internship}}
     {% endif %}
       </div>
-    <input class="btn btn-success" type="submit" value="Add HR">
+    <input class="btn btn-success" type="submit" formnovalidate value="Add HR">
   </form>
    </div>
   </div>

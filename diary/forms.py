@@ -4,6 +4,9 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 import datetime as python_datetime
 
+# external dependancy
+from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
+
 class CompanyForm(forms.ModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -50,4 +53,27 @@ class RemarkForm(forms.ModelForm):
         }
         labels = {
             'remark': _('Add Remark'),
+        }
+
+class HRForm(forms.ModelForm):
+    class Meta:
+        model = models.HR
+        fields = ('name', 'contact_number_1', 'contact_number_2', 'email', 'linkedin_id', 'facebook_id', 'placement', 'internship')
+        widgets = {
+            'contact_number_1': PhoneNumberInternationalFallbackWidget(),
+            'contact_number_2': PhoneNumberInternationalFallbackWidget(),
+        }
+        error_messages = {
+            'name':{
+                'required': _("Please enter the name of the HR.")
+            },
+            'contact_number_1': {
+                'invalid': _("Please ensure that the phone number contains right number of digits."),
+            },
+            'contact_number_2': {
+                'invalid': _("Please ensure that the phone number contains right number of digits."),
+            },
+            'email': {
+                'invalid': _("Please enter a valid email address! Example: abc@xyz.com"),
+            },
         }
