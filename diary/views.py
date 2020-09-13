@@ -132,9 +132,14 @@ class CompanyInternRemarksListView(LoginRequiredMixin, ListView, ModelFormMixin)
 
 class HRCreateView(LoginRequiredMixin, CreateView):
     model = models.HR
-    fields = ('name', 'contact_number_1', 'contact_number_2', 'email', 'linkedin_id', 'facebook_id', 'placement', 'internship')
+    form_class = forms.HRForm
     template_name = 'diary/create_hr.html'
 
+    # to check whether company has registered for the present year.
+    # it is to be done manually because the company field in hrs model is not in the form so there is no validation done by django
+    # in this regard.
+    # form.instance is an instance of the model(whose values of fields are that of entered by user) not saved yet as a form!
+    # we can use it to modify data before creating a row in db or to add values to some fields which were not displayed while taking input
     def form_valid(self, form, **kwargs):
         form.instance.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
         return super().form_valid(form)
