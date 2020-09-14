@@ -37,7 +37,7 @@ class Company(models.Model):
     datetime = models.DateTimeField(default=timezone.now)
     # you need to do editable = False and remove default during deployment
     year = models.IntegerField(blank=True, default=python_datetime.date.today().year)
-    response = models.JSONField(blank=True, editable=False, null=True)
+    info = models.JSONField(blank=True, editable=False, null=True)
 
     def __str__(self):
         return self.name + " (" + str(self.year) + ")"
@@ -47,7 +47,9 @@ class Company(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        self.response = clearbit.NameToDomain.find(name=self.name)
+        dom = clearbit.NameToDomain.find(name=self.name)
+        if dom is not None:
+            self.info = clearbit.Company.find(domain=dom['domain'])
         # uncomment during deployment
         # self.year = python_datetime.date.today().year
         super().save(*args, **kwargs)
