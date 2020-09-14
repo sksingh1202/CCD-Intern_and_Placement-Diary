@@ -22,7 +22,7 @@
       {% else %}<tr class="company_clicked" onclick="window.location.href = '{% url 'company_intern_remarks' slug=company.slug year=yr %} ';">
       {% endif %}
         <td class="company_image" >
-          <img src="http://logo.clearbit.com/{{company.response.domain}}?size=150" class=" card-img" alt="Unable to fetch Image!" >
+          <img src="http://logo.clearbit.com/{{company.info.domain}}?size=150" class=" card-img" alt="Unable to fetch Image!" >
         </td>
         <td class="company_name">
           {{ company.name }}
@@ -90,7 +90,7 @@
 <!--        <div class="company card mb-3 p-2">-->
 <!--          <div class="row no-gutters">-->
 <!--            <div class="col-md-2 d-flex align-items-center">-->
-<!--              <img src="http://logo.clearbit.com/{{company.response.domain}}?size=500" class=" card-img" alt="Unable to fetch Image!" >-->
+<!--              <img src="http://logo.clearbit.com/{{company.info.domain}}?size=500" class=" card-img" alt="Unable to fetch Image!" >-->
 <!--            </div>-->
 <!--            <div class="col-md-10">-->
 <!--              <div class="card-body row d-flex align-items-center">-->
