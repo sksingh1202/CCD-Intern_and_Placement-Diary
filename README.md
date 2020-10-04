@@ -12,12 +12,16 @@ local machine for development and testing purposes.
 
 ### Prerequisites
 Please ensure that you have the following set up on your local machine before
-running the project. You may want to go through the documentation links below for installing them in case you don't have them set up.
+running the project. You may want to go through the documentation links below for installing them in case you don't have them set up. Also check the requirements.txt and ensure all the libraries are installed. Use 'pip freeze' command to see what all libraries are installed.
 
 * [Django-v3.0.8](https://www.djangoproject.com/download/)
 * [django-phonenumber-field-v4.0.0](https://github.com/stefanfoulis/django-phonenumber-field)
 * [python-phonenumbers-library-v8.12.7](https://github.com/daviddrysdale/python-phonenumbers)
 * [Python-v3.7.5](https://www.python.org/downloads/)
+
+### Setting Up Environment Variables
+[How to set up environment variables](https://www.youtube.com/watch?v=5iWhQWVXosU)
+Follow this link to set up environment variables
 
 ### Installing
 To install the files to your local machine, you can simply copy the folder from
