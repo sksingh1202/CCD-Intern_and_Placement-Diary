@@ -39,14 +39,14 @@
               <div class="d-flex justify-content-center bg-light"><img class="profile-pic" src="https://robohash.org/{{HR.name}}.png?"></div>
               <div class="card-body bg-light d-flex justify-content-center text-dark">
                 {% if HR.contact_number_1 %}
-                <a class="fa fa-phone bg-warning text-white m-1" href="tel:{{HR.contact_number_1}}"></a>
+                <a class="fa fa-item fa-phone bg-warning text-white m-1" href="tel:{{HR.contact_number_1}}"></a>
                 {% endif %}
                 {% if HR.contact_number_2 %}
-                <a class="fa fa-phone bg-warning text-white m-1" href="tel:{{HR.contact_number_2}}"></a>
+                <a class="fa fa-item fa-phone bg-warning text-white m-1" href="tel:{{HR.contact_number_2}}"></a>
                 {% endif %}
-                <a class="fa fa-paper-plane bg-primary text-white m-1" href="mailto:{{HR.email}}"></a>
+                <a class="fa fa-item fa-paper-plane bg-primary text-white m-1" href="mailto:{{HR.email}}"></a>
 <!--                <a href="{{ HR.facebook_id }}" class="fa fa-facebook m-1"></a>  <a href="{{ HR.linkedin_id }}" class="fa fa-linkedin m-1"></a>-->
-                <a href="{{ HR.facebook_id }}" target="_blank" class="fa fa-facebook m-1"></a>  <a href="{{ HR.linkedin_id }}" target="_blank" class="fa fa-linkedin m-1"></a>
+                <a href="{{ HR.facebook_id }}" target="_blank" class="fa fa-item fa-facebook m-1"></a>  <a href="{{ HR.linkedin_id }}" target="_blank" class="fa fa-item fa-linkedin m-1"></a>
             </div>
             </div>
             {% empty %}

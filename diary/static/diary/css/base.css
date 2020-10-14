@@ -1,128 +1,127 @@
-*{
-	font-family: 'Raleway', sans-serif;
-	overflow-x:hidden;
+* {
+  font-family: "Raleway", sans-serif;
 }
-body{
-    font-size:1rem;
+body {
+  font-size: 1rem;
 }
-.cool-font{
-    font-family: 'Lato', sans-serif;
-    font-weight:400;
-    font-size: 35px;
+.cool-font {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 35px;
 }
-a.navbar-brand{
-
-	font-size: 40px;
-	font-weight: 800;
+a.navbar-brand {
+  font-size: 40px;
+  font-weight: 800;
 }
-a{
-    text-decoration:none;
+a {
+  text-decoration: none;
 }
-a:link{
-    text-decoration:none;
+a:link {
+  text-decoration: none;
 }
-.home-icon{
-   display: flex;
-align-items: center;
-justify-content: center;
-position: fixed;
-right: 20px;
-bottom: 20px;
+.home-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
 }
 
-i.fa-home{
-      font-size: 25px;
-color: #17a2b8;
-border: rgba(0, 0, 0, 0.12) solid 0.1px;
-padding: 15px;
-text-decoration: none;
-border-radius: 50%;
+i.fa-home {
+  font-size: 25px;
+  color: #17a2b8;
+  border: rgba(0, 0, 0, 0.12) solid 0.1px;
+  padding: 15px;
+  text-decoration: none;
+  border-radius: 50%;
 }
-i.fa-home:hover{
-    background-color:#17a2b8;
-    color: white;
+i.fa-home:hover {
+  background-color: #17a2b8;
+  color: white;
 }
- .fa.fa-search{
-        font-size: 18px;
-        padding: 4px;
-    }
+.fa.fa-search {
+  font-size: 18px;
+  padding: 4px;
+}
 
-@media (max-width : 479px) {
-    body{
-        font-size: 0.4rem;
-    }
-    .desktop-view{
-        display:none;
-    }
-    .mobile-view{
-        font-size:0.7rem;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-    }
-    button.navbar-toggler{
-        border: none;
-    }
-    .nav-link-hr:hover{
-        background-color:#17a2b8;
-    }
-    .nav-link-company:hover{
-        background-color:#28a745;
-    }
-    .nav-link-logout:hover{
-        background-color:#dc3545;
-    }
-    .card-img{
-        height:30px;
-        padding:0;
-        margin: 0;
-    }
-    ul.CPOC li.li-items{
-    font-weight:400;
-    margin:0;
-    padding:0;
+@media (max-width: 479px) {
+  body {
     font-size: 0.4rem;
-    }
-    .bi-check{
-        font-size:0.4rem;
-    }
-    h1.display-4{
-        font-size:2rem;
-    }
-    .desktop-detail{
-        display:none;
-    }
-    .col-2-m{
-        width:100%;
-        margin-left:0;
-        margin-right:0;
-        margin-bottom:20px;
-    }
-    .col-6-m{
-        width:100%;
-        margin-left:0;
-        margin-right:0;
-        margin-bottom:20px;
-    }
-    .mobile-img{
-        padding: 6px;
-    }
-    .time.time-mobile{
-        padding:10px;
-        font-size:0.6rem;
-    }
-
+  }
+  .desktop-view {
+    display: none;
+  }
+  .mobile-view {
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  button.navbar-toggler {
+    border: none;
+  }
+  .nav-link-hr:hover {
+    background-color: #17a2b8;
+  }
+  .nav-link-company:hover {
+    background-color: #28a745;
+  }
+  .nav-link-logout:hover {
+    background-color: #dc3545;
+  }
+  .card-img {
+    height: 30px;
+    padding: 0;
+    margin: 0;
+  }
+  ul.CPOC li.li-items {
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    font-size: 0.4rem;
+  }
+  .bi-check {
+    font-size: 0.4rem;
+  }
+  h1.display-4 {
+    font-size: 2rem;
+  }
+  .desktop-detail {
+    display: none;
+  }
+  .col-2-m {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  .col-6-m {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  .mobile-img {
+    padding: 6px;
+  }
+  .time.time-mobile {
+    padding: 10px;
+    font-size: 0.6rem;
+  }
+}
+.navbar-text {
+  float: left;
 }
 
-
-@media (min-width : 480px) {
-    .desktop-view{
-        display:block;
-    }
-    .mobile-view{
-    display:none;
-    }
-    .mobile-detail{
-        display:none;
-    }
+@media (min-width: 480px) {
+  .desktop-view {
+    display: block;
+  }
+  .mobile-view {
+    display: none;
+  }
+  .mobile-detail {
+    display: none;
+  }
 }
