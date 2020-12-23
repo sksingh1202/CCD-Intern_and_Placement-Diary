@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['ccd-diary.herokuapp.com']
 
 INSTALLED_APPS = [
     'diary',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

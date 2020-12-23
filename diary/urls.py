@@ -14,6 +14,16 @@ urlpatterns = [
         auth_views.LogoutView.as_view(),
         name='logout'
     ),
+    path('intern_calendar/',
+        views.intern_calendar, 
+        name='intern_calendar'
+    ),
+    path('placement_calendar/',
+        views.placement_calendar, 
+        name='placement_calendar'
+    ),
+    path('del/<int:item_id>',views.remove,name="del"),
+    path('del1/<int:item1_id>',views.remove1,name="del1"),    
     path('companies/<int:year>/',
         views.CompanyListView.as_view(),
         name='company_list'

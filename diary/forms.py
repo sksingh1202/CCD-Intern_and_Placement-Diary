@@ -3,6 +3,7 @@ from . import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 import datetime as python_datetime
+from .models import Todo,Todo1
 
 # external dependancy
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
@@ -77,3 +78,13 @@ class HRForm(forms.ModelForm):
                 'invalid': _("Please enter a valid email address! Example: abc@xyz.com"),
             },
         }
+
+class TodoForm(forms.ModelForm): 
+    class Meta: 
+        model = Todo 
+        fields="__all__"
+        
+class Todo1Form(forms.ModelForm): 
+    class Meta: 
+        model = Todo1 
+        fields="__all__"        
