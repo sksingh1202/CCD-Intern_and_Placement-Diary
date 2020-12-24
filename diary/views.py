@@ -1,13 +1,15 @@
 import datetime
-
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, get_list_or_404, render
+from django.shortcuts import get_object_or_404, get_list_or_404, render,redirect
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import ModelFormMixin
 from django.views.generic.list import ListView
-
+from django.contrib import messages
 from . import forms
 from . import models
+from .forms import TodoForm ,Todo1Form
+from .models import Todo,Todo1 
 
 # this is a global variable which represents the year version of the current company_list page:
 GLOBAL_YR = 0
@@ -186,3 +188,51 @@ class HRPresentListView(LoginRequiredMixin, ListView):
 
 def error_404_view(requests, exception):
     return render(requests, 'diary/404.html')
+@login_required
+def intern_calendar(request): 
+  
+    item_list = Todo.objects.order_by("date") 
+    if request.method == "POST": 
+        form = TodoForm(request.POST) 
+        if form.is_valid(): 
+            form.save() 
+    form = TodoForm()
+    page = { 
+             "forms" : form, 
+             "list" : item_list, 
+             "title" : "TODO LIST", 
+           } 
+    return render(request,'diary/intern_calendar.html' , page) 
+  
+  
+  
+### function to remove item, it recive todo item id from url ## 
+@login_required
+def remove(request, item_id): 
+    item = Todo.objects.get(pk=item_id) 
+    item.delete()
+    messages.info(request, "item removed !!!")  
+    return redirect('/intern_calendar')
+
+@login_required
+def placement_calendar(request): 
+  
+    item_list = Todo1.objects.order_by("date") 
+    if request.method == "POST": 
+        form = Todo1Form(request.POST) 
+        if form.is_valid(): 
+            form.save() 
+    form = Todo1Form() 
+    page = { 
+             "forms" : form, 
+             "list" : item_list, 
+             "title" : "TODO1 LIST", 
+           } 
+    return render(request,'diary/placement_calendar.html' , page)
+
+@login_required
+def remove1(request, item1_id): 
+    item1 = Todo1.objects.get(pk=item1_id) 
+    item1.delete()
+    messages.info(request, "item removed !!!")  
+    return redirect('/placement_calendar')

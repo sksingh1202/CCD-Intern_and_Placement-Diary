@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import handler404
-
+from diary import views as diary_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('diary.urls')),
+    path('intern_calendar/',diary_views.intern_calendar,name='intern_calendar'),
+    path('placement_calendar/',diary_views.placement_calendar,name='placement_calendar'),
 ]
 
 handler404 = 'diary.views.error_404_view'
