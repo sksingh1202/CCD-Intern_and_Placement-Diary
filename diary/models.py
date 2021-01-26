@@ -100,7 +100,8 @@ class HR(models.Model):
         verbose_name = "HR"
         verbose_name_plural = "HRs"
 
-class Todo(models.Model): 
+class Todo(models.Model):
+    username = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='tasks', blank=True)
     title=models.CharField(max_length=100) 
     details=models.TextField() 
     date=models.DateTimeField(default=timezone.now) 
@@ -108,7 +109,8 @@ class Todo(models.Model):
     def __str__(self): 
         return self.title
 
-class Todo1(models.Model): 
+class Todo1(models.Model):
+    username = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='tasks1', blank=True)
     title=models.CharField(max_length=100) 
     details=models.TextField() 
     date=models.DateTimeField(default=timezone.now) 

@@ -27,17 +27,7 @@
    text-overflow: ellipsis;
   }
   .card:hover{
-    background: rgb(155, 50, 132);
-  }
-
-  .submit_form{
-
-    text-align: center;
-    padding: 3%;
-    background: rgb(119, 134, 123);
-    border-radius: 25px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4),
-                0 6px 20px 0 rgba(0,0,0,0.36);
+    background: rgb(50, 129, 155);
   }
   </style>
 
@@ -54,16 +44,11 @@
   {% endif %}
 
   <center class="row">
-   <h1><i>UPCOMING TASKS</i></h1>
+    <h1><i>Upcoming tasks of {{username}} </i></h1>
     <hr />
   </center>
-  
-
 
   <div class="row">
-
-    
-
 
     <div class="col-md-8">
 
@@ -86,21 +71,7 @@
       </div>
       {% endfor%}
     </div>
-    <div class="col-md-1"> </div>
-    <div class="col-md-3" >
-      <div  class="submit_form">
-      <form  method="POST">
-        {% csrf_token %}
-        {{forms.title}}
-        {{forms.details}}
-        {{forms.date}}
-        <center>
-        <input type="submit" class="btn btn-default" value="Add Task" />
-      </center>
-      </form>
-    </div>
-  </div>
-</div>
+    
 </body>
 
 </html>

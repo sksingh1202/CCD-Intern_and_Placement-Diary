@@ -31,7 +31,7 @@
       integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
     <a href="{% url 'company_list' year=2020 %}" class="home-icon"><i class=" fa fa-home"></i></a>
     <nav class="mobile-view  navbar-expand-lg navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="{% url 'company_list' year=2020 %}">CCD Diary</a>
+  <a class="navbar-brand" href="{% url 'company_list' year=2021 %}">CCD Diary</a>
           <div class="btn-group float-right mx-1">
           <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{yr}}
@@ -67,7 +67,7 @@
 </nav>
     <nav class="desktop-view navbar navbar-dark bg-dark">
       <div class="container-fluid">
-  		  <a class="navbar-brand mr-auto" href="{% url 'company_list' year=2020 %}">CCD Diary</a>
+  		  <a class="navbar-brand mr-auto" href="{% url 'company_list' year=2021 %}">CCD Diary</a>
         <div class="d-flex align-items-center">
           <span class="navbar-text mx-3 cool-font">{{ request.user }}</span>
         {% block dropdown-block %}

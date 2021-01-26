@@ -82,9 +82,9 @@ class HRForm(forms.ModelForm):
 class TodoForm(forms.ModelForm): 
     class Meta: 
         model = Todo 
-        fields="__all__"
+        fields=['title','details','date','username']
         
 class Todo1Form(forms.ModelForm): 
     class Meta: 
         model = Todo1 
-        fields="__all__"        
+        fields=['title','details','date','username']      

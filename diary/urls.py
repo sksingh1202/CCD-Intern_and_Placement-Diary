@@ -1,7 +1,6 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 from . import views
-
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -18,9 +17,17 @@ urlpatterns = [
         views.intern_calendar, 
         name='intern_calendar'
     ),
+    path('intern_calendar/<str:username>', 
+        views.user_intern_calendar,
+        name='user-tasks'
+    ),
     path('placement_calendar/',
         views.placement_calendar, 
         name='placement_calendar'
+    ),
+    path('placement_calendar/<str:username>', 
+        views.user_placement_calendar,
+        name='user-tasks'
     ),
     path('del/<int:item_id>',views.remove,name="del"),
     path('del1/<int:item1_id>',views.remove1,name="del1"),    
