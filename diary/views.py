@@ -1,15 +1,19 @@
 import datetime
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, get_list_or_404, render,redirect
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import ModelFormMixin
 from django.views.generic.list import ListView
 from django.contrib import messages
+from django.urls import reverse_lazy
 from . import forms
 from . import models
 from .forms import TodoForm ,Todo1Form
 from .models import Todo,Todo1 
+from django.contrib.auth.models import User
+from django.contrib.admin.models import LogEntry
 
 # this is a global variable which represents the year version of the current company_list page:
 GLOBAL_YR = 0
@@ -29,6 +33,7 @@ class CompanyListView(LoginRequiredMixin, ListView):
         context['yr'] = self.kwargs['year']
         global GLOBAL_YR
         GLOBAL_YR = self.kwargs['year']
+        print(datetime.date.today().year)
         context['yr_list'] = [*range(2015, datetime.date.today().year + 1)]
         return context
 
@@ -188,10 +193,81 @@ class HRPresentListView(LoginRequiredMixin, ListView):
 
 def error_404_view(requests, exception):
     return render(requests, 'diary/404.html')
+
 @login_required
 def intern_calendar(request): 
+
+    
+    
   
     item_list = Todo.objects.order_by("date") 
+    if request.method == "POST": 
+        form = TodoForm(request.POST) 
+        if form.is_valid():
+            form_temp = form.save(commit=False)
+            form_temp.username = request.user
+            form.save()
+            return HttpResponseRedirect(reverse_lazy('intern_calendar'))
+            
+            
+    form = TodoForm()
+    page = { 
+             "forms" : form, 
+             "list" : item_list, 
+             "title" : "TODO LIST", 
+            
+           } 
+    return render(request,'diary/intern_calendar.html' , page)
+    # return render(request,'diary/intern_calendar.html') 
+  
+  
+  
+### function to remove item, it recive todo item id from url ## 
+@login_required
+def remove(request, item_id): 
+    item = Todo.objects.get(pk=item_id) 
+    if item.username == request.user:
+        item.delete()
+        messages.info(request, "item removed !!!")  
+        return redirect('/intern_calendar')
+    else:
+        return redirect('/404.html')
+
+@login_required
+def placement_calendar(request): 
+  
+    item_list = Todo1.objects.order_by("date") 
+    if request.method == "POST": 
+        form = Todo1Form(request.POST) 
+        if form.is_valid():
+            form_temp = form.save(commit=False)
+            form_temp.username = request.user
+            form.save()
+            return HttpResponseRedirect(reverse_lazy('placement_calendar'))
+            
+            
+    form = Todo1Form()
+    page = { 
+             "forms" : form, 
+             "list" : item_list, 
+             "title" : "TODO LIST", 
+            
+           } 
+    return render(request,'diary/placement_calendar.html' , page)
+
+@login_required
+def remove1(request, item1_id): 
+    item1 = Todo1.objects.get(pk=item1_id) 
+    if item1.username == request.user:
+        item1.delete()
+        messages.info(request, "item removed !!!")  
+        return redirect('/placement_calendar')
+    else:
+        return redirect('/404.html')
+
+@login_required
+def user_intern_calendar(request,username):
+    item_list = Todo.objects.filter(username__username=username).order_by('date') 
     if request.method == "POST": 
         form = TodoForm(request.POST) 
         if form.is_valid(): 
@@ -201,38 +277,23 @@ def intern_calendar(request):
              "forms" : form, 
              "list" : item_list, 
              "title" : "TODO LIST", 
+             "username" : username
            } 
-    return render(request,'diary/intern_calendar.html' , page) 
-  
-  
-  
-### function to remove item, it recive todo item id from url ## 
-@login_required
-def remove(request, item_id): 
-    item = Todo.objects.get(pk=item_id) 
-    item.delete()
-    messages.info(request, "item removed !!!")  
-    return redirect('/intern_calendar')
+    return render(request,'diary/intern_calendar_user.html' , page)   
+
 
 @login_required
-def placement_calendar(request): 
-  
-    item_list = Todo1.objects.order_by("date") 
+def user_placement_calendar(request,username):
+    item_list = Todo1.objects.filter(username__username=username).order_by('date') 
     if request.method == "POST": 
         form = Todo1Form(request.POST) 
         if form.is_valid(): 
             form.save() 
-    form = Todo1Form() 
+    form = Todo1Form()
     page = { 
              "forms" : form, 
              "list" : item_list, 
-             "title" : "TODO1 LIST", 
+             "title" : "TODO LIST", 
+             "username" : username
            } 
-    return render(request,'diary/placement_calendar.html' , page)
-
-@login_required
-def remove1(request, item1_id): 
-    item1 = Todo1.objects.get(pk=item1_id) 
-    item1.delete()
-    messages.info(request, "item removed !!!")  
-    return redirect('/placement_calendar')
+    return render(request,'diary/placement_calendar_user.html' , page)  
