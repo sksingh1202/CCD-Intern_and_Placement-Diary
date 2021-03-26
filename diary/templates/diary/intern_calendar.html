@@ -1,4 +1,7 @@
 {% extends "diary/base.html" %}
+{% load static %}
+{% block dropdown-block %}
+{% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
@@ -10,15 +13,15 @@
   <title>{{title}}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   <!--style-->
   <style>
   .card {
 
    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5),
                0 6px 20px 0 rgba(0,0,0,0.39);
-   background: rgb(255, 255, 0);
+   background: rgb(174, 214, 187);
    margin-bottom : 5%;
    border-radius: 25px;
    padding : 2%;
@@ -27,14 +30,14 @@
    text-overflow: ellipsis;
   }
   .card:hover{
-    background: rgb(155, 50, 132);
+    background: rgb(218, 189, 26);
   }
-
+  body {background-color: rgb(243, 255, 80);}
   .submit_form{
 
     text-align: center;
     padding: 3%;
-    background: rgb(119, 134, 123);
+    background: rgb(66, 201, 32);
     border-radius: 25px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4),
                 0 6px 20px 0 rgba(0,0,0,0.36);
@@ -52,27 +55,15 @@
   </div>
   {% endfor %}
   {% endif %}
-
-  <center class="row">
-   <h1><i>UPCOMING TASKS</i></h1>
+   <h1><i>UPCOMING TASKS:-</i></h1>
     <hr />
-  </center>
-  
-
-
   <div class="row">
-
-    
-
-
     <div class="col-md-8">
-
       {% for i in list %}
       <div class="card">
-        <center><b>{{i.title}}</b></center>
+        <center><b><i>{{i.title}}</i></b></center>
         <hr/>
         <a href="/intern_calendar/{{i.username}}">{{i.username}}</a>
-        <hr/>
         <hr/>
         {{i.date}}
         <hr/>
@@ -91,8 +82,16 @@
       <div  class="submit_form">
       <form  method="POST">
         {% csrf_token %}
-        {{forms.title}}
-        {{forms.details}}
+        <b>Title:</b>
+        <br/>
+       {{forms.title}}
+       <br/>
+       <b>Details:</b> 
+       <br/>
+       {{forms.details}}
+       <br/>
+       <b>Date and Time</b>
+       <br/>
         {{forms.date}}
         <center>
         <input type="submit" class="btn btn-default" value="Add Task" />
