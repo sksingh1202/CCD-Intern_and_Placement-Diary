@@ -26,6 +26,7 @@ class User(AbstractUser):
 
 class Company(models.Model):
     name = models.CharField(max_length=100)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='companies')
     POC = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='company_poc')
     CPOC = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='company_cpoc')
     additional_POC = models.CharField(max_length=100, blank=True)
@@ -78,6 +79,7 @@ class Remark(models.Model):
 
 class HR(models.Model):
     name = models.CharField(max_length=100)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='hr')
     company = models.ForeignKey(Company, on_delete=models.PROTECT, related_name='hr')
     contact_number_1 = PhoneNumberField(blank = True)
     contact_number_2 = PhoneNumberField(blank = True)
@@ -117,3 +119,14 @@ class Todo1(models.Model):
   
     def __str__(self): 
         return self.title
+
+class activities(models.Model):
+    username = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='activities', blank=True)
+    details=models.TextField()
+    date=models.DateTimeField(default=timezone.now)
+    company_name=models.TextField(default='')
+    # date=models.DateTimeField(default=timezone.now) 
+
+    def __str__(self):
+        return self.username
+

@@ -11,13 +11,13 @@ from django.urls import reverse_lazy
 from . import forms
 from . import models
 from .forms import TodoForm ,Todo1Form
-from .models import Todo,Todo1 
+from .models import Todo,Todo1,activities ,Company
 from django.contrib.auth.models import User
 from django.contrib.admin.models import LogEntry
+from .signals import new_task,new_task1,intern_task_delete,intern_task_delete2,new_company
 
 # this is a global variable which represents the year version of the current company_list page:
 GLOBAL_YR = 0
-
 # Create your views here.
 
 class CompanyListView(LoginRequiredMixin, ListView):
@@ -51,11 +51,27 @@ def company_intern_placement_filter(request, *args, **kwargs):
         context['company_list'] =  models.Company.objects.filter(datetime__year=GLOBAL_YR, placement=(request.POST.get("place_val") == "True"), internship=(request.POST.get("intern_val") == "True"))
     return render(request, "diary/_filtered_companies.html", context)
 
-
-class CompanyCreateView(LoginRequiredMixin, CreateView):
+class CompanyCreateView(LoginRequiredMixin, CreateView, ModelFormMixin):
     model = models.Company
     form_class = forms.CompanyForm
     template_name = 'diary/company_create.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        self.form = self.get_form(self.form_class)
+        return CreateView.get(self, request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        self.form = self.get_form(self.form_class)
+        self.object = self.form.save(commit = False)
+        self.object.user = request.user
+        self.object.save()
+        request.POST = None
+        # print(self.object)
+        # return self.get(request, *args, **kwargs)
+        return redirect('/companies/' + str(datetime.date.today().year))
+        # return self.object.get_absolute_url()
 
 # you may like to refer: https://docs.djangoproject.com/en/3.0/topics/class-based-views/generic-display/#generic-views-of-objects
 # to get a better understanding
@@ -147,14 +163,30 @@ class HRCreateView(LoginRequiredMixin, CreateView):
     # in this regard.
     # form.instance is an instance of the model(whose values of fields are that of entered by user) not saved yet as a form!
     # we can use it to modify data before creating a row in db or to add values to some fields which were not displayed while taking input
-    def form_valid(self, form, **kwargs):
-        form.instance.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
-        return super().form_valid(form)
+    # def form_valid(self, form, **kwargs):
+    #     form.instance.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
+    #     return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['company'] = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
         return context
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        self.form = self.get_form(self.form_class)
+        return CreateView.get(self, request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        self.form = self.get_form(self.form_class)
+        self.object = self.form.save(commit = False)
+        self.object.user = request.user
+        self.object.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
+        self.object.save()
+        request.POST = None
+        # return self.get(request, *args, **kwargs)
+        return redirect('/hr/' + str(datetime.date.today().year))
 
 # class HRNavCreateView(LoginRequiredMixin, CreateView):
 #     model = models.HR
@@ -196,11 +228,8 @@ def error_404_view(requests, exception):
 
 @login_required
 def intern_calendar(request): 
-
-    
-    
   
-    item_list = Todo.objects.order_by("date") 
+    item_list = Todo.objects.order_by("-date") 
     if request.method == "POST": 
         form = TodoForm(request.POST) 
         if form.is_valid():
@@ -227,6 +256,7 @@ def intern_calendar(request):
 def remove(request, item_id): 
     item = Todo.objects.get(pk=item_id) 
     if item.username == request.user:
+        intern_task_delete.send(sender=Todo, Todo=item)
         item.delete()
         messages.info(request, "item removed !!!")  
         return redirect('/intern_calendar')
@@ -236,7 +266,7 @@ def remove(request, item_id):
 @login_required
 def placement_calendar(request): 
   
-    item_list = Todo1.objects.order_by("date") 
+    item_list = Todo1.objects.order_by("-date") 
     if request.method == "POST": 
         form = Todo1Form(request.POST) 
         if form.is_valid():
@@ -259,6 +289,7 @@ def placement_calendar(request):
 def remove1(request, item1_id): 
     item1 = Todo1.objects.get(pk=item1_id) 
     if item1.username == request.user:
+        intern_task_delete2.send(sender=Todo1, Todo1=item1)
         item1.delete()
         messages.info(request, "item removed !!!")  
         return redirect('/placement_calendar')
@@ -267,7 +298,7 @@ def remove1(request, item1_id):
 
 @login_required
 def user_intern_calendar(request,username):
-    item_list = Todo.objects.filter(username__username=username).order_by('date') 
+    item_list = Todo.objects.filter(username__username=username).order_by('-date') 
     if request.method == "POST": 
         form = TodoForm(request.POST) 
         if form.is_valid(): 
@@ -284,7 +315,7 @@ def user_intern_calendar(request,username):
 
 @login_required
 def user_placement_calendar(request,username):
-    item_list = Todo1.objects.filter(username__username=username).order_by('date') 
+    item_list = Todo1.objects.filter(username__username=username).order_by('-date') 
     if request.method == "POST": 
         form = Todo1Form(request.POST) 
         if form.is_valid(): 
@@ -296,4 +327,8 @@ def user_placement_calendar(request,username):
              "title" : "TODO LIST", 
              "username" : username
            } 
-    return render(request,'diary/placement_calendar_user.html' , page)  
+    return render(request,'diary/placement_calendar_user.html' , page) 
+
+def activities_list(request):
+    l=activities.objects.all().order_by('-date')
+    return render(request,'diary/activities.html',{'l':l})
