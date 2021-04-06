@@ -41,7 +41,7 @@ def company_update(request, *args, **kwargs):
     global GLOBAL_YR
     context = {'company_list':models.Company.objects.filter(datetime__year=GLOBAL_YR), 'yr':GLOBAL_YR}
     if request.method == "POST" and len(str(request.POST.get('search_text'))):
-        context['company_list'] = models.Company.objects.filter(datetime_year=GLOBAL_YR, name_icontains=request.POST.get("search_text"))
+        context['company_list'] = models.Company.objects.filter(datetime__year=GLOBAL_YR, name__icontains=request.POST.get("search_text"))
     return render(request, "diary/_filtered_companies.html", context)
 
 def company_intern_placement_filter(request, *args, **kwargs):
