@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from . import models
-from .models import Todo,Todo1
+from .models import Todo,Todo1,activities
 
 # Register your models here.
 
@@ -36,3 +36,4 @@ admin.site.register(models.HR,HRAdmin)
 admin.site.register(models.Remark,RemarkAdmin)
 admin.site.register(Todo)
 admin.site.register(Todo1)
+admin.site.register(activities)

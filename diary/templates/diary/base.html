@@ -59,6 +59,9 @@
       <li class="nav-item nav-link-PlacementTasks">
         <a class="nav-link" href="{% url 'placement_calendar'%}">PlacementTasks</a>
       </li>
+      <li class="nav-item nav-link-Activities">
+        <a class="nav-link" href="{% url 'activities_list'%}">Dashboard</a>
+      </li>
       <li class="nav-item nav-link-logout">
         <a class="nav-link" href ="{% url 'logout' %}">Logout</a>
       </li>
@@ -86,6 +89,7 @@
           <a class="btn btn-success my-2 my-sm-0 mx-2" href="{% url 'company_create' %}">Add Company</a>
           <a class="btn btn-success my-2 my-sm-0 mx-2" href="{% url 'intern_calendar'%}">InternTasks</a>
           <a class="btn btn-success my-2 my-sm-0 mx-2" href="{% url 'placement_calendar'%}">PlacementTasks</a>
+          <a class="btn btn-success my-2 my-sm-0 mx-2" href="{% url 'activities_list'%}">Dashboard</a>
           <a class="btn btn-danger my-2 my-sm-0 mx-2" href ="{% url 'logout' %}">Logout</a>
         </div>
       </div>
