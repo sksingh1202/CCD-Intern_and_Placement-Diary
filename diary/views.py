@@ -51,30 +51,19 @@ def company_intern_placement_filter(request, *args, **kwargs):
         context['company_list'] =  models.Company.objects.filter(datetime__year=GLOBAL_YR, placement=(request.POST.get("place_val") == "True"), internship=(request.POST.get("intern_val") == "True"))
     return render(request, "diary/_filtered_companies.html", context)
 
-class CompanyCreateView(LoginRequiredMixin, CreateView, ModelFormMixin):
+class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = models.Company
     form_class = forms.CompanyForm
     template_name = 'diary/company_create.html'
 
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        self.form = self.get_form(self.form_class)
-        return CreateView.get(self, request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        self.form = self.get_form(self.form_class)
-        self.object = self.form.save(commit = False)
-        self.object.user = request.user
-        self.object.save()
-        request.POST = None
-        # print(self.object)
-        # return self.get(request, *args, **kwargs)
-        return redirect('/companies/' + str(datetime.date.today().year))
-        # return self.object.get_absolute_url()
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 # you may like to refer: https://docs.djangoproject.com/en/3.0/topics/class-based-views/generic-display/#generic-views-of-objects
 # to get a better understanding
+# when you want a list and also a form in a page, then instead of using ListView with ModelFormMixin, a better approach is to
+# use CreateView and modify the context with (get_context_data) to include a list of desired type!
 class CompanyPlacementRemarksListView(LoginRequiredMixin, ListView, ModelFormMixin):
     model = models.Remark
     form_class = forms.RemarkForm
@@ -163,30 +152,15 @@ class HRCreateView(LoginRequiredMixin, CreateView):
     # in this regard.
     # form.instance is an instance of the model(whose values of fields are that of entered by user) not saved yet as a form!
     # we can use it to modify data before creating a row in db or to add values to some fields which were not displayed while taking input
-    # def form_valid(self, form, **kwargs):
-    #     form.instance.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['company'] = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
         return context
-
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        self.form = self.get_form(self.form_class)
-        return CreateView.get(self, request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        self.form = self.get_form(self.form_class)
-        self.object = self.form.save(commit = False)
-        self.object.user = request.user
-        self.object.company = get_object_or_404(models.Company, slug = self.kwargs['slug'], year = datetime.date.today().year)
-        self.object.save()
-        request.POST = None
-        # return self.get(request, *args, **kwargs)
-        return redirect('/hr/' + str(datetime.date.today().year))
 
 # class HRNavCreateView(LoginRequiredMixin, CreateView):
 #     model = models.HR
