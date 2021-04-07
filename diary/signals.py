@@ -37,4 +37,3 @@ def new_company2(sender,instance,**kwargs):
 @receiver(post_save,sender=HR)
 def new_hr(sender,instance,**kwargs):
     activities.objects.create(username=instance.user,company_name=instance.company.name,details='has added a HR for company')        
-    return redirect('/companies/' + str(datetime.date.today().year))
