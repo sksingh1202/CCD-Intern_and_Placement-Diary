@@ -3,7 +3,12 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- <title>{{title}}</title> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--style-->
   	<!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Raleway:wght@500&display=swap" rel="stylesheet">
@@ -84,9 +89,9 @@
           {% endblock %}
           <a class="btn btn-info my-2 my-sm-0 mx-2" href="{% url 'hr_present_list' %}">All HR's</a>
           <a class="btn btn-success my-2 my-sm-0 mx-2" href="{% url 'company_create' %}">Add Company</a>
-          <a class="btn btn-success my-2 my-sm-0 mx-2" href="{% url 'intern_calendar'%}">InternTasks</a>
-          <a class="btn btn-success my-2 my-sm-0 mx-2" href="{% url 'placement_calendar'%}">PlacementTasks</a>
-          <a class="btn btn-danger my-2 my-sm-0 mx-2" href ="{% url 'logout' %}">Logout</a>
+          <a class="btn btn-success my-2 my-sm-0 mx-2" href="{% url 'intern_calendar'%}">InternTasks📅 </a>
+          <a class="btn btn-success my-2 my-sm-0 mx-2" href="{% url 'placement_calendar'%}">PlacementTasks📅 </a>
+          <a class="btn btn-danger my-2 my-sm-0 mx-2" href ="{% url 'logout' %}">Logout ⤴ </a>
         </div>
       </div>
 	 </nav>
