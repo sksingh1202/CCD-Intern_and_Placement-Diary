@@ -1,4 +1,7 @@
 {% extends "diary/base.html" %}
+{% load static %}
+{% block dropdown-block %}
+{% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
 <!-- <!DOCTYPE html> -->
@@ -28,6 +31,7 @@
     }
   </style>
   <meta charset="utf-8">
+<<<<<<< HEAD
    <title>{{title}}</title> -->
   <style type="text/css">
     ::-webkit-scrollbar {
@@ -159,14 +163,7 @@
   <center class="row">
    <h1 class="headingTask">UPCOMING &nbsp; TASKS</h1>
     <hr />
-  </center>
-  
-
-
   <div class="row">
-
-    
-
     {% if list %}
     <div class="col-md-7 col-sm-12" style="height:500px;background-color:rgb(66, 64, 64);
     overflow:auto;margin-left:30px;margin-bottom:30px;border:10px solid rgb(66, 64, 64);">

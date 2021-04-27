@@ -13,6 +13,11 @@ urlpatterns = [
         auth_views.LogoutView.as_view(),
         name='logout'
     ),
+    path('activities_list/',
+        views.activities_list,
+        name='activities_list'
+
+    ),
     path('intern_calendar/',
         views.intern_calendar, 
         name='intern_calendar'

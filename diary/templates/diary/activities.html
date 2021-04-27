@@ -1,0 +1,11 @@
+{% extends "diary/base.html" %}
+{% load static %}
+{% block dropdown-block %}
+{% endblock %}
+{% block content %}
+<br/>
+{% for i in l%}
+    {{i.username}}  {{i.details}} {{i.company_name}} at  {{i.date}}
+<br/>
+{% endfor %}
+{% endblock content %}
